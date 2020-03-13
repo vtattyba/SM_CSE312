@@ -19,9 +19,11 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-image: linear-gradient(50deg, #f14b62 20%, #f6b669 74%); font-family: Verdana">
-<a class="navbar-brand" href="#"><div class="spinner-grow" style="width: 2rem; height: 2rem;" role="status">
-  <span class="sr-only"></span>
-</div></a>
+    <a class="navbar-brand" href="#">
+        <div class="spinner-grow" style="width: 2rem; height: 2rem;" role="status">
+         <span class="sr-only"></span>
+        </div>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -30,11 +32,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link"  href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="profile.html">Profile</a>
             </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -47,13 +50,17 @@
                     <a class="dropdown-item" href="Friends.html">All Friends</a>
                 </div>
             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="login.html">Logout</a>
+            </li>
             <li class="nav-item">
-                <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+<!--                <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
             </li>
         </ul>
 
         <form class="form-inline my-2 my-lg-0">
-            <a class="nav-link" style="text-decoration: none; color: gray" target="_blank" href="#">Post</a>
+            <a class="nav-link" style="text-decoration: none; color: gray"  href="#">Post</a>
+            <a class="nav-link" style="text-decoration: none; color: gray"  href="chat.html">Chat</a>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
