@@ -1,2 +1,2 @@
-Project V 1.2.0.
-author - Tamaghan Maurya, Mayank Jha, Vladimir
+Project V 1.2.0. 
+author - Tamaghan Maurya
