@@ -25,7 +25,6 @@ class HTTPHelper:
     def get_content(self):
         return self.content
 
-
     def content_parser(self):
         self.content = []
         boundary = self.get_request()['boundary'].encode()
@@ -98,16 +97,13 @@ class HTTPHelper:
         response = response.encode('utf-8') + '\r\n'.encode('utf-8') + content + '\r\n'.encode('utf-8')
         return response
 
-    def set_image_page(self, img_n):
-        self.switch_dict['IMAGE'] = '../Public/Uploaded_Images/' + img_n
-
     def serve_content(self, file_n, index_bool):
         file_n = 'Front_End/' + file_n
         file_type = file_n[file_n.index('.') + 1:]
         if file_type[-1] != 'g':
             file_o = open(file_n, 'r')
             read = file_o.read()
-            read = self.temp_replace(read, file_n)
+            #read = self.temp_replace(read, file_n)
             return self.create_response('201 OK', ['Content-Type: text/' + file_type,
                                                    'Content-Length: ' + str(len(bytes(read, 'utf-8')))], read,
                                         index_bool)
@@ -120,38 +116,6 @@ class HTTPHelper:
                                            ['Content-Type: image/' + file_type, 'Content-Length: ' + str(len(read))],
                                            read)
 
-    def update_form(self, path):
-        if path == '/form':
-            public = open('Public/Table_Data.txt', 'at')
-            s = ''
-            for elem in self.content:
-                s += elem[-1].decode() + '\n'
-            public.write(s)
-            public.close()
-        elif path == '/img-form':
-            image_count_file = open('Public/Uploaded_Images/Image_Count.txt', 'rt')
-            image_count = int(image_count_file.read())
-            image_count += 1
-            upload = open('Public/Uploaded_Images/User_Upload_' + str(image_count) + '.jpg', 'wb')
-            open('Public/Uploaded_Images/Image_Count.txt', 'wt').write(str(image_count))
-            image_count_file.close()
-            upload.write(self.content[0][-1])
-            upload.close()
-        self.update_switch_dict()
-
-    def temp_replace(self, file_s, file_n):
-        if '/' in file_n:
-            file_n = file_n[file_n.index('/') + 1:]
-        while True:
-            try:
-                start_i = file_s.index('{{')
-                end_i = file_s.index('}}')
-                switch_this = file_s[start_i + 2:end_i]
-                change_to = self.switch_dict[switch_this]
-                file_s = file_s.replace(file_s[start_i:end_i + 2], change_to)
-            except ValueError:
-                break
-        return file_s
 
     def buffer(self, conn):
         length = len(self.b_arr)
