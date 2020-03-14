@@ -38,10 +38,13 @@ def run_server():
 
         path = hp.get_request()['Path']
         print(hp.get_request(), '\n', hp.get_content(), '\n###################')
-
         if path == '/':
             response = hp.serve_content('Index.html', True)
             conn.sendall(response.encode())
+        elif path[0:6] == '/image' and path[7:] + '.jpg' in os.listdir('Public'):
+            hp.set_image_page(path[7:] + '.jpg')
+            response = hp.serve_content('One_image.html', False)
+            encode_and_send(response, conn)
         elif path[1:] in os.listdir('Front_End') or (path[1:7] == 'Public'):
             response = hp.serve_content(path[1:], False)
             encode_and_send(response, conn)

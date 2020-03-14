@@ -134,7 +134,7 @@ html, body {
 }
 
 #profile {
-    background-image: url("../public/3.jpg");
+    background-image: url("../Public/3.jpg");
     background-position: center;
     background-size: cover;
     padding-top: 25rem;
