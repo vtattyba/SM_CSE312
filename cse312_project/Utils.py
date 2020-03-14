@@ -84,8 +84,6 @@ class HTTPHelper:
             content is the content you want sent to the sever (should be the same size as the Content-Length: VAL's VAL)
             """
         response = 'HTTP/1.1 ' + response_code + '\r\n'
-        if index_bool:
-            response_headers = self.handle_cookie(response_headers)
         for header in response_headers:
             response = response + header + '\r\n'
         self.response = response + '\r\n'
