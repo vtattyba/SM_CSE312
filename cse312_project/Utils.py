@@ -1,5 +1,3 @@
-import string
-import random
 import os
 
 
@@ -102,8 +100,9 @@ class HTTPHelper:
         file_type = file_n[file_n.index('.') + 1:]
         if file_type[-1] != 'g':
             file_o = open(file_n, 'r')
+            print(file_n)
+            print(file_o)
             read = file_o.read()
-            #read = self.temp_replace(read, file_n)
             return self.create_response('201 OK', ['Content-Type: text/' + file_type,
                                                    'Content-Length: ' + str(len(bytes(read, 'utf-8')))], read,
                                         index_bool)

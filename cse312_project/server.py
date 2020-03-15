@@ -21,7 +21,7 @@ def run_server():
     hp = Utils.HTTPHelper()
 
     host = ''
-    port = int(input('Enter the port you want to use: '))
+    port = 8000
     server.bind((host, port))
     server.listen()
     while True:
@@ -39,7 +39,7 @@ def run_server():
         path = hp.get_request()['Path']
         print(hp.get_request(), '\n', hp.get_content(), '\n###################')
         if path == '/':
-            response = hp.serve_content('Index.html', True)
+            response = hp.serve_content('index.html', True)
             conn.sendall(response.encode())
         elif path[0:6] == '/image' and path[7:] + '.jpg' in os.listdir('Public'):
             hp.set_image_page(path[7:] + '.jpg')
