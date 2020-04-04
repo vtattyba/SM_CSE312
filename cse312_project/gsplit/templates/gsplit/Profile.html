@@ -1,10 +1,11 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'gsplit/style.css' %}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -32,10 +33,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{% url 'gsplit-index' %}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="profile.html">Profile</a>
+                <a class="nav-link" href="{% url 'gsplit-profile' %}">Profile</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -47,11 +48,11 @@
                     <a class="dropdown-item" href="#">friend 1</a>
                     <a class="dropdown-item" href="#">friend 2</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="Friends.html">All Friends</a>
+                    <a class="dropdown-item" href="{% url 'gsplit-friends' %}">All Friends</a>
                 </div>
             </li>
              <li class="nav-item">
-                <a class="nav-link" href="login.html">Logout</a>
+                <a class="nav-link" href="{% url 'gsplit-login' %}">Logout</a>
             </li>
             <li class="nav-item">
 <!--                <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
@@ -60,7 +61,7 @@
 
         <form class="form-inline my-2 my-lg-0">
             <a class="nav-link" style="text-decoration: none; color: gray" target="_blank" href="#">Post</a>
-            <a class="nav-link" style="text-decoration: none; color: gray" target="_blank" href="chat.html">Chat</a>
+            <a class="nav-link" style="text-decoration: none; color: gray" target="_blank" href="{% url 'gsplit-chat' %}">Chat</a>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
@@ -71,7 +72,7 @@
     <div class="inner-timeline-left-profile">
         <div id="profile">
             <div id="my-image">
-                <img src="images/2.jpg" alt="image" width="743" height="743">
+                <img src="{% static 'gsplit/images/2.jpg'%}" alt="image" width="743" height="743">
             </div>
             <div id="profile-me">
                 <div >
@@ -110,11 +111,11 @@
 
                 <div class="card mb-3">
                     <div class="card-header">
-                        <img class="post-icon" src="images/3.jpg">
+                        <img class="post-icon" src="{% static 'gsplit/images/3.jpg' %}">
                         Full Name
                         <p class="card-text card-time"><small class="text-muted">16 Hrs ago</small></p>
                     </div>
-                    <img src="images/1.jpg" class="card-img-top " alt="...">
+                    <img src="{% static 'gsplit/images/1.jpg' %}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <div class="description">
                             <div class=" caption">
@@ -152,7 +153,7 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <img class="post-icon" src="images/1.jpg">
+                        <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}">
                         Full Name
                         <p class="card-text card-time"><small class="text-muted">16 Hrs ago</small></p>
                     </div>
@@ -189,11 +190,11 @@
                 <div class="card mb-3">
                     <div class="card-header">
 
-                        <img class="post-icon" src="images/2.jpg">
+                        <img class="post-icon" src="{% static 'gsplit/images/2.jpg'%}">
                         Full Name
                         <p class="card-text card-time"><small class="text-muted">16 Hrs ago</small></p>
                     </div>
-                    <img src="images/1.jpg" class="card-img-top " alt="...">
+                    <img src="{% static 'gsplit/images/1.jpg'%}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <div class="description">
                             <div class=" caption">
@@ -229,11 +230,11 @@
                 <div class="card mb-3">
                     <div class="card-header">
 
-                        <img class="post-icon" src="images/2.jpg">
+                        <img class="post-icon" src="{% static 'gsplit/images/2.jpg'%}">
                         Full Name
                         <p class="card-text card-time"><small class="text-muted">16 Hrs ago</small></p>
                     </div>
-                    <img src="images/3.jpg" class="card-img-top " alt="...">
+                    <img src="{% static 'gsplit/images/3.jpg'%}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <div class="description">
                             <div class=" caption">
@@ -281,7 +282,7 @@
                 </div>
                 <div class="card-deck" style="padding-top: 20px">
                     <div class="card">
-                        <img src="images/jeff.jpg" class="card-img-top" alt="...">
+                        <img src="{% static 'gsplit/images/jeff.jpg'%}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This card has supporting text below as a natural lead-in to additional
@@ -290,7 +291,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="images/tim.jpg" class="card-img-top" alt="...">
+                        <img src="{% static 'gsplit/images/tim.jpg'%}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
@@ -322,6 +323,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="{% static 'gsplit/script.js' %}"></script>
 </body>
 </html>
