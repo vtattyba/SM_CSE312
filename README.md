@@ -1,9 +1,9 @@
 # SM_CSE312
-Phase 1: https://docs.google.com/document/d/1d25tQoBDROrwe4VB6642S1Z00_jtlJ7PrKgSw2pt5h8/edit
-Phase 2: https://docs.google.com/document/d/1tMmQurp25i82hdOHeY4371YGoJ-uFBFvwXOEBuilaK8/edit
-Youtube Phase 1 Demo: https://youtu.be/fmAJfewY-68
+**Phase 1:** https://docs.google.com/document/d/1d25tQoBDROrwe4VB6642S1Z00_jtlJ7PrKgSw2pt5h8/edit <br><br>
+**Phase 2:** https://docs.google.com/document/d/1tMmQurp25i82hdOHeY4371YGoJ-uFBFvwXOEBuilaK8/edit <br><br>
+**Youtube Phase 1 Demo:** https://youtu.be/fmAJfewY-68
 
-The Phase 1 code can be found in the submit 1 branch
+**The Phase 1 code can be found in the Submit 1 Branch**
 
 
 We plan to make a social media site which allows
