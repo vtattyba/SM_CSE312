@@ -31,7 +31,18 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-{#            <li class="nav-item active">#}
+
+        {% if user.is_authenticated %}
+            <li><a href="#" class="btn btn-simple">Post</a></li>
+            <li><a href="#" class="btn btn-simple">Friends</a></li>
+            <li><a href="#"class="btn btn-simple">Chat</a></li>
+
+            <li><a href="{% url 'gsplit-logout' %}" class="btn btn-simple">Log out</a></li>
+        {% else %}
+            <li><a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a></li>
+            <li><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a></li>
+        {% endif %}
+{% comment %} {#            <li class="nav-item active">#}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'gsplit-index' %}">Home <span class="sr-only">(current)</span></a>
             </li>
@@ -55,15 +66,15 @@
             </li>
             <li class="nav-item">
 <!--                <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-            </li>
+            </li> {% endcomment %}
         </ul>
 
-        <form class="form-inline my-2 my-lg-0">
+        {% comment %} <form class="form-inline my-2 my-lg-0">
             <a class="nav-link" style="text-decoration: none; color: gray"  href="#">Post</a>
             <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'gsplit-chat' %}">Chat</a>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> {% endcomment %}
     </div>
 </nav>
 
