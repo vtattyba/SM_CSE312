@@ -53,53 +53,59 @@ class TestPage(TemplateView):
 class ThanksPage(TemplateView):
     template_name = 'gsplit/thanks.html'
 
-class PostList(ListView):
+class PostList(ListView, LoginRequiredMixin):
     model = models.Post
+    template_name = "gsplit/posts/post_list.html"
 
-class UserPosts(ListView):
+
+class UserPostsDetail(DetailView):
     model = models.Post
-    template_name = 'gsplit/profile.html'
-
-    def get_queryset(self):
-        try:
-            self.post_user = User.objects.prefetch_related("posts").get(
-                username__iexact=self.kwargs.get("username")
-            )
-        except User.DoesNotExist:
-        
-            raise Http404
-        else:
-            return self.post_user.posts.all()
-    
-    def context_data(self,**kwargs):
-        context = super().get_context_data(**kwargs)
-        context['post_user'] = self.post_user
-
-class UserPostsDetal(DetailView):
-    model = models.Post
+    template_name = 'gsplit/posts/post_list.html'
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(user__username__iexact=self.kwargs.get("username"))
+        return queryset.filter(owner__username__iexact=self.kwargs.get("username"))
 
 class CreatePost(LoginRequiredMixin, CreateView):
 
-    fields = ('message')
+    fields = ('message',)
+    template_name = 'gsplit/posts/post_form.html'
     model = models.Post
 
     def form_valid(self,form):
         self.object = form.save(commit=False)
-        self.object.user=self.request.user
+        self.object.owner = self.request.user
         self.object.save()
         return super().form_valid(form)
+
+
+# class UserPosts(ListView):
+#     model = models.Post
+#     template_name = 'gsplit/profile.html'
+
+#     def get_queryset(self):
+#         try:
+#             self.post_user = User.objects.prefetch_related("posts").get(
+#                 username__iexact=self.kwargs.get("username")
+#             )
+#         except User.DoesNotExist:
+        
+#             raise Http404
+#         else:
+#             return self.post_user.posts.all()
+    
+#     def context_data(self,**kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['post_user'] = self.post_user
 
 class DeletePost(LoginRequiredMixin, DeleteView):
     model = models.Post
     success_url = reverse_lazy("all")
+    template_name = 'gsplit/posts/post_confirm_delete.html'
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(user_id=self.request.user.id)
+        return queryset.filter(owner_id=self.request.user.id)
 
     def delete(self, *args, **kwargs):
         messages.success(self.request, "Post Deleted")

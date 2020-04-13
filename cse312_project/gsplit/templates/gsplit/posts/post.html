@@ -1,0 +1,61 @@
+{% load static %}
+<div class="card mb-3">
+
+<div class="card-header">
+<img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
+{{ post.owner.first_name }} {{post.owner.last_name}}
+    <p class="card-text card-time"><small class="text-muted">{{post.created_at}}</small></p>
+</div>
+
+{% comment %} {% if post.has_photo %} {% endcomment %}
+<img src="{% static 'gsplit/images/1.jpg'%}" class="card-img-top" alt="...">
+    {% comment %} {%endif%}  {% endcomment %}
+
+<div class="card-body">
+<div class="description">
+    <div class=" caption">
+        <p class="card-text">
+            <span class="bold">
+                <a href="{% url 'test' %}">
+                    {{post.owner}}
+                </a></span>
+            {{ post.message_html|safe }}
+        </p>
+    </div>
+    <div>
+        <span style="color: black; padding-right: 5px; font-size: 25px;font-weight: lighter">0</span>
+        <div type="button" class="btn btn-light">Like</div>
+        <i id="heart0" onclick="tg(this)" class="far fa-heart"></i>
+
+    </div>
+    
+    {% if user.is_authenticated and post.owner == user %}
+    <p>
+    
+    <a class="btn btn-danger" href="{% url 'delete' pk=post.pk %}">Delete</a>
+
+</p>
+{% endif %}
+
+</div>
+
+{% comment %} <p>
+    <button class="btn btn-light" type="button" data-toggle="collapse" data-target="{{post.id}}"
+            aria-expanded="false" aria-controls="collapseExample">
+        Comments
+    </button>
+</p> {% endcomment %}
+
+{% comment %} <div class="collapse" id="{{post.id}}">
+        <div class="card card-body">
+    {% for comment in comments %}
+            <div class="comment">
+                <span class="bold">{{comment.commenter}} </span> {{comment.comment}}
+            </div>
+    {% endfor %}
+        </div>
+</div> {% endcomment %}
+
+
+</div>
+</div>

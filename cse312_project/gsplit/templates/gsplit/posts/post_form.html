@@ -1,0 +1,17 @@
+{% extends "gsplit/posts/post_base.html" %}
+
+{% load bootstrap4 %}
+{% block post_content %}
+<div class='container'>
+	<h4>Create New Post</h4>
+<div class="container">
+
+<form method="POST" action="{% url 'create' %}" id="postForm">
+	{% csrf_token %}
+	{% bootstrap_form form %}
+	<input type="submit" value="Post" class="btn btn-primary btn-large">
+</form>
+</div>
+</div>
+
+{% endblock %}

@@ -15,7 +15,6 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/b6d5ddd578.js"></script> -->
 <!--          delete-->
-    {% block title %}Title Filler{% endblock %}
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-image: linear-gradient(50deg, #f14b62 20%, #f6b669 74%); font-family: Verdana">
@@ -30,12 +29,14 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav ml-auto">
 
         {% if user.is_authenticated %}
-            <li><a href="#" class="btn btn-simple">Post</a></li>
+            <li><a href="{% url 'create' %}" class="btn btn-simple">New</a></li>
             <li><a href="#" class="btn btn-simple">Friends</a></li>
             <li><a href="#"class="btn btn-simple">Chat</a></li>
+            <li><a href="test"class="btn btn-simple">{{user}}</a></li>
+
 
             <li><a href="{% url 'gsplit-logout' %}" class="btn btn-simple">Log out</a></li>
         {% else %}
