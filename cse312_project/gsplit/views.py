@@ -53,7 +53,7 @@ class TestPage(TemplateView):
 class ThanksPage(TemplateView):
     template_name = 'gsplit/thanks.html'
 
-class PostList(ListView, LoginRequiredMixin):
+class PostList(ListView):
     model = models.Post
     template_name = "gsplit/posts/post_list.html"
 

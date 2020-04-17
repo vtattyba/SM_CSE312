@@ -14,10 +14,10 @@ class User(auth_models.User, auth_models.PermissionsMixin):
     def __str__(self):
         return "@{}".format(self.username)
     
-# class UserProfile(models.Model):
-#     profile_pic = models.ImageField(
-#     user = models.ForeignKey(auth_models.User, unique=True,on_delete=models.CASCADE)
-#     )
+class UserProfile(models.Model):
+    profile_pic = models.ImageField()
+    user = models.ForeignKey(auth_models.User, unique=True,on_delete=models.CASCADE)
+    
 
 
 CurrentUser = get_user_model()
@@ -45,8 +45,6 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created_at']
-        unique_together = ['owner', 'message']
-
 # class Likers(models.Model):
 #     like = models.ForeignKey(Post, related_name="likes", on_delete=models.CASCADE)
 #     user = models.ForeignKey(CurrentUser,related_name='user_likes', on_delete=models.CASCADE)
