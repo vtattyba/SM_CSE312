@@ -13,3 +13,5 @@ into groups so they can only see when you post to one of
 the groups they are in. 
 
 **Comment:** The Phase 1 code can be found in the Submit 1 Branch
+
+**Discord:** https://discord.gg/yraBbw
