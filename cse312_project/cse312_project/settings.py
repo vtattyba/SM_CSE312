@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import psycopg2.extensions
+# import psycopg2.extensions
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -97,10 +97,12 @@ DATABASES = {
 #             'HOST' : "127.0.0.1",
 #             'PORT' : '5432'
 
+
 #         },
 #         'OPTIONS': {
 #         'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
 #     },
+
 
 #     }
 
