@@ -32,7 +32,7 @@ class Post(models.Model):
     message_html = models.TextField(editable=False)
 
     def __str__(self):
-        self.message
+        return self.message
 
     def save(self, *args, **kwargs):
         self.message_html = misaka.html(self.message)
