@@ -5,7 +5,7 @@ from django.views.generic import CreateView, TemplateView, UpdateView, DeleteVie
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
 from . import forms
-from braces.views import SelectRelatedMixin
+# from braces.views import SelectRelatedMixin
 from . import models
 from django.contrib.auth import get_user_model
 User = get_user_model()
