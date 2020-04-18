@@ -14,10 +14,10 @@ class User(auth_models.User, auth_models.PermissionsMixin):
     def __str__(self):
         return "@{}".format(self.username)
     
-class UserProfile(models.Model):
-    profile_pic = models.ImageField()
-    user = models.ForeignKey(auth_models.User, unique=True,on_delete=models.CASCADE)
-    
+# class UserProfile(models.Model):
+#     profile_pic = models.ImageField()
+#     user = models.ForeignKey(auth_models.User, unique=True,on_delete=models.CASCADE)
+#
 
 
 CurrentUser = get_user_model()
@@ -26,7 +26,7 @@ from django import template
 # register = template.library()
 
 class Post(models.Model):
-    owner = models.ForeignKey(CurrentUser, related_name='posts',on_delete=models.CASCADE)
+    owner = models.ForeignKey(CurrentUser, related_name='posts', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
     message = models.TextField()
     message_html = models.TextField(editable=False)
