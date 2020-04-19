@@ -6,19 +6,26 @@
  {% block title %}<title>Gsplit</title>{% endblock %}
 
  {% block content %}
+
 <div id="login-container">
     <center>
 
-    <div class="container">
-        <div style="padding: 10px"></div>
-        <h1>FACEGRAM</h1>
-        <div style="padding: 20px"></div>
-        <h2>Create an account and join today!</h2>
-         <div style="padding: 15px"></div>
-        <h2>Already have an account?</h2>
-        <h2>Sign in above</h2>
+        <form id="login-box">
+            <div class="form-col align-items-center">
+               <div class="spinner-border" style="width: 15rem; height: 15rem;" role="status"></div>
+             </div>
+            <h1 style="padding-top: 40px"> FACEGRAM </h1>
+            <button type="submit" class="btn btn-success mb-2"><a href="{% url 'gsplit-login' %}" class="btn btn-simple" >Log In</a></button>
+            {% if user.is_authenticated %}
+            <div class="card-body">
+                <h5 class="card-title">Join our Social Media</h5>
+                <div class="col-auto">
+                  <button type="submit" class="btn btn-warning mb-2"><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple" >Sign up</a></button>
+                </div>
+          </div>
+            {% endif %}
 
-    </div>
+        </form>
     </center>
 </div>
 

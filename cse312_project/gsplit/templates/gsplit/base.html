@@ -32,18 +32,22 @@
         <ul class="navbar-nav ml-auto">
 
         {% if user.is_authenticated %}
-            <li><a href="{% url 'create' %}" class="btn btn-simple">New</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'gsplit-index' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li><a href="{% url 'create' %}" class="btn btn-simple">New Post</a></li>
             <li><a href="#" class="btn btn-simple">Friends</a></li>
             <li><a href="#"class="btn btn-simple">Chat</a></li>
             <li><a href="test"class="btn btn-simple">{{user}}</a></li>
+            <li><a href="{% url 'gsplit-logout' %}" class="btn btn-danger">Log out</a></li>
 
-
-            <li><a href="{% url 'gsplit-logout' %}" class="btn btn-simple">Log out</a></li>
         {% else %}
             <li><a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a></li>
             <li><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a></li>
         {% endif %}
-{% comment %} {#            <li class="nav-item active">#}
+
+{% comment %} {#
+            <li class="nav-item active">#}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'gsplit-index' %}">Home <span class="sr-only">(current)</span></a>
             </li>
@@ -67,7 +71,7 @@
             </li>
             <li class="nav-item">
 <!--                <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-            </li> {% endcomment %}
+            </li>{% endcomment %}
         </ul>
 
         {% comment %} <form class="form-inline my-2 my-lg-0">
@@ -79,12 +83,9 @@
     </div>
 </nav>
 
-
-{% block content %}
-    Filler Content
-{% endblock %}
-
-
+        {% block content %}
+            Filler Content
+        {% endblock %}
 
 
 <!-- Optional JavaScript -->

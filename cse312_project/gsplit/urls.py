@@ -17,6 +17,8 @@ urlpatterns = [
     path('test', views.TestPage.as_view(), name ='test'),
     path('thanks', views.ThanksPage.as_view(), name='thanks'),
 
+    path('/', views.post_detail, name='post_detail'),
+
     path('posts',views.PostList.as_view(),name ='all'),
     path('new',views.CreatePost.as_view(),name='create'),
     # re_path(r'by/(?P<username>[-\w]+)',views.UserPosts().as_view, name='for_user'),

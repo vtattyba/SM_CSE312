@@ -1,61 +1,60 @@
 {% load static %}
-<div class="card mb-3">
-
-<div class="card-header">
-<img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
-{{ post.owner.first_name }} {{post.owner.last_name}}
-    <p class="card-text card-time"><small class="text-muted">{{post.created_at}}</small></p>
-</div>
-
-{% if post.cover %}
-<img src="{{ post.cover.url}}" alt="" class="card-img-top">
-{% endif %}
-
-<div class="card-body">
-<div class="description">
-    <div class=" caption">
-        <p class="card-text">
-            <span class="bold">
-                <a href="{% url 'test' %}">
+<div style="width: 100%; margin-top: 40px" class="card mb-3">
+    <div class="card-header">
+        <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
+         <a  class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'test' %}">
                     {{post.owner}}
-                </a></span>
-            {{ post.message_html|safe }}
-        </p>
+                </a>
+<!--        {{ post.owner.first_name }} {{post.owner.last_name}}-->
+        <p class="card-text card-time"><small class="text-muted">{{post.created_at}}</small></p>
     </div>
-    <div>
-        <span style="color: black; padding-right: 5px; font-size: 25px;font-weight: lighter">0</span>
-        <div type="button" class="btn btn-light">Like</div>
-        <i id="heart0" onclick="tg(this)" class="far fa-heart"></i>
 
-    </div>
-    
-    {% if user.is_authenticated and post.owner == user %}
-    <p>
-    
-    <a class="btn btn-danger" href="{% url 'delete' pk=post.pk %}">Delete</a>
+    {% if post.cover %}
+    <img src="{{ post.cover.url}}" alt="" class="card-img-top">
+    {% endif %}
 
-</p>
-{% endif %}
+    <div class="card-body">
+        <div class="description">
+            <div class=" caption">
+                <p class="card-text">
+                    <span class="bold">
+                        <a href="{% url 'test' %}">
+                            {{post.owner}}
 
-</div>
+                        </a>
+                     </span>
+                    <span style="margin-top: -10px">
+                        {{ post.message_html|safe }}
+                      </span>
 
-{% comment %} <p>
-    <button class="btn btn-light" type="button" data-toggle="collapse" data-target="{{post.id}}"
-            aria-expanded="false" aria-controls="collapseExample">
-        Comments
-    </button>
-</p> {% endcomment %}
-
-{% comment %} <div class="collapse" id="{{post.id}}">
-        <div class="card card-body">
-    {% for comment in comments %}
-            <div class="comment">
-                <span class="bold">{{comment.commenter}} </span> {{comment.comment}}
+                </p>
             </div>
-    {% endfor %}
+            <div>
+                <span style="color: black; padding-right: 5px; font-size: 25px;font-weight: lighter">0</span>
+                <div type="button" class="btn btn-danger">Like</div>
+                <i id="heart0" onclick="tg(this)" class="far fa-heart"></i>
+            </div>
+
+            {% if user.is_authenticated and post.owner == user %}
+            <p>
+                <a class="btn btn-danger" href="{% url 'delete' pk=post.pk %}">Delete</a>
+            </p>
+            {% endif %}
+
         </div>
-</div> {% endcomment %}
+
+          {% for comment in comments %}
+        <div class="comments" style="padding: 10px;">
+          <p class="font-weight-bold">
+            {{ comment.name }}
+            <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+          </p>
+          {{ comment.body | linebreaks }}
+        </div>
+        {% endfor %}
 
 
-</div>
+    </div>
 </div>

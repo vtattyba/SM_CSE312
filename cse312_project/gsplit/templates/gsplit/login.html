@@ -14,11 +14,14 @@
     <center>
 
     <div class="container">
-        <h1>Sign IN</h1>
+        <div style="padding-top: 48px" class="form-col align-items-center">
+               <div class="spinner-border" style="width: 15rem; height: 15rem;" role="status"></div>
+        </div>
+        <h1 style="padding-top: 40px"> FACEGRAM </h1>
             <form method="POST">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <input type="submit" value="Login" class="btn btn-default">
+                <input type="submit" value="Login" class="btn btn-warning">
             </form>
     </div>
 {% comment %} 

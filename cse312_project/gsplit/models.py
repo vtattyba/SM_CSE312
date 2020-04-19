@@ -51,12 +51,17 @@ class Post(models.Model):
 #COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
 class Comment(models.Model):
     post = models.ForeignKey(Post,related_name='comments', on_delete=models.CASCADE)
-    user = models.ForeignKey(CurrentUser,related_name='commenter', on_delete=models.CASCADE)
-    content = models.TextField(max_length=160) #Limit User Input to 160 Char
-    timestamp = models.DateTimeField(auto_now_add=True)
+    name = models.ForeignKey(CurrentUser,related_name='commenter', on_delete=models.CASCADE)
+    body = models.TextField(max_length=80)
+    body_html = models.TextField(editable=False)
+    created_on = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
-        return str(CurrentUser)
+        return 'Comment {} by {}'.format(self.body, self.name)
+
+    class Meta:
+        ordering = ['created_on']
 #COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
 #Registers in admin.py
 #Form start in forms.py
