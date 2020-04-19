@@ -68,7 +68,7 @@ class UserPostsDetail(DetailView):
 
 class CreatePost(LoginRequiredMixin, CreateView):
 
-    fields = ('message',)
+    fields = ['message','cover']
     template_name = 'gsplit/posts/post_form.html'
     model = models.Post
 
@@ -111,7 +111,9 @@ class DeletePost(LoginRequiredMixin, DeleteView):
         messages.success(self.request, "Post Deleted")
         return super().delete(*args, **kwargs)
 
-
+class HomePageView(ListView):
+    model = models.Post
+    template_name = 'gsplit/posts/post_list.html'
 
 
 # def login(request):

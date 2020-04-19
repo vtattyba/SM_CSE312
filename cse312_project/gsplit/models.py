@@ -31,6 +31,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     message = models.TextField()
     message_html = models.TextField(editable=False)
+    cover = models.ImageField(upload_to='images/', blank=True, null=True)
 
     def __str__(self):
         return self.message

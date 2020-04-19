@@ -8,6 +8,8 @@ urlpatterns = [
     path('friends', views.friends, name='gsplit-friends'),
     path('chat', views.chat, name='gsplit-chat'),
 
+    path('', views.HomePageView.as_view(), name='post'),
+
     path('login', auth_views.LoginView.as_view(template_name ='gsplit/login.html'), name='gsplit-login'),
     path('create_acc', views.createAcc.as_view(), name='gsplit-create_acc'),
     path('logout', auth_views.LogoutView.as_view(), name = 'gsplit-logout'),

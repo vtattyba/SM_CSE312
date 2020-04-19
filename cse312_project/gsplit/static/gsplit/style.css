@@ -283,3 +283,15 @@ html, body {
     border-style: solid;
     border-radius: 3px;
 }
+.bttn1{
+    margin-bottom: 10px;
+    font-size: 20px;
+    background: transparent;
+    color: white;
+    font-family: Optima;
+    /*border-width: 3.4px;*/
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    margin-top: 10px;
+}

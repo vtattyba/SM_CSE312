@@ -6,7 +6,7 @@
 	<h4>Create New Post</h4>
 <div class="container">
 
-<form method="POST" action="{% url 'create' %}" id="postForm">
+<form method="POST" action="{% url 'create' %}" id="postForm" enctype="multipart/form-data">
 	{% csrf_token %}
 	{% bootstrap_form form %}
 	<input type="submit" value="Post" class="btn btn-primary btn-large">

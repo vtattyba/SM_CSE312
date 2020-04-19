@@ -7,9 +7,9 @@
     <p class="card-text card-time"><small class="text-muted">{{post.created_at}}</small></p>
 </div>
 
-{% comment %} {% if post.has_photo %} {% endcomment %}
-<img src="{% static 'gsplit/images/1.jpg'%}" class="card-img-top" alt="...">
-    {% comment %} {%endif%}  {% endcomment %}
+{% if post.cover %}
+<img src="{{ post.cover.url}}" alt="" class="card-img-top">
+{% endif %}
 
 <div class="card-body">
 <div class="description">
