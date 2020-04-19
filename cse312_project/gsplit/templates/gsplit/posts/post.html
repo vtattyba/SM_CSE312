@@ -1,15 +1,16 @@
 {% load static %}
+
 <div class="card mb-3">
 
 <div class="card-header">
 <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
-{{ post.owner.first_name }} {{post.owner.last_name}}
+{{post.owner}}
     <p class="card-text card-time"><small class="text-muted">{{post.created_at}}</small></p>
 </div>
 
-{% comment %} {% if post.has_photo %} {% endcomment %}
+{% if post.has_photo %}
 <img src="{% static 'gsplit/images/1.jpg'%}" class="card-img-top" alt="...">
-    {% comment %} {%endif%}  {% endcomment %}
+    {%endif%}
 
 <div class="card-body">
 <div class="description">
@@ -39,14 +40,16 @@
 
 </div>
 
-{% comment %} <p>
+
+
+<p>
     <button class="btn btn-light" type="button" data-toggle="collapse" data-target="{{post.id}}"
             aria-expanded="false" aria-controls="collapseExample">
         Comments
     </button>
-</p> {% endcomment %}
+</p>
 
-{% comment %} <div class="collapse" id="{{post.id}}">
+    <div class="collapse" id="{{post.id}}">
         <div class="card card-body">
     {% for comment in comments %}
             <div class="comment">
@@ -54,7 +57,8 @@
             </div>
     {% endfor %}
         </div>
-</div> {% endcomment %}
+</div>
+
 
 
 </div>

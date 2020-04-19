@@ -1,11 +1,97 @@
 {% extends "gsplit/base.html" %}
 {% load static %}
-<!doctype html>
-<html lang="en">
+{% load bootstrap4 %}
 
- {% block title %}<title>Gsplit</title>{% endblock %}
+{% block title %}<title>Gsplit</title>{% endblock %}
 
- {% block content %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<div id="Outer-timeline">
+
+    <div class="inner-timeline-left">
+       {% for post in posts %}
+        <div class="card mb-3">
+
+            <div class="card-header">
+                <img class="post-icon" src="{% static ""%} {{ post.owner.profile_pic }}">
+                {{ post.owner }}
+                <p class="card-text card-time"> <small class="text-muted"> {{post.upload_time}} </small></p>
+            </div>
+            {% if post.has_photo %}
+            <img src="{% static ""%}{{ post.photo }}" class="card-img-top" alt="...">
+            {%endif%}
+
+            <div class="card-body">
+                <div class="description">
+                    <div class=" caption">
+                        <p class="card-text  "> <span class="bold"> {{post.owner}} </span>
+                            {{ post.message_html|safe }}
+                        </p>
+                    </div>
+                    <div>
+                        <span style="color: black; padding-right: 5px; font-size: 25px;font-weight: lighter">{{post.likes}}</span>
+                        <div type="button" class="btn btn-light"><3</div>
+                        <i id="heart0" onclick="tg(this)" class="far fa-heart"></i>
+                    </div>
+
+                </div>
+
+                <p>
+                    <button class="btn btn-light" type="button" data-toggle="collapse" data-target="{{post.id}}"
+                                    aria-expanded="false" aria-controls="collapseExample">
+                        Comments
+                    </button>
+                </p>
+
+                <div class="collapse" id="{{post.id}}">
+                    <div class="card card-body">
+                        {% for comment in comments %}
+                        <div class="comment">
+                            <span class="bold">{{comment.commenter}} </span> {{comment.comment}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="card">
+        <center class="card-body">
+            You have reached the end!
+        </center>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="inner-timeline-right">
+    {% for ad in ads %}
+    <div class="card card-right">
+        <img src="{% static ""%}{{ ad.0 }}" class="card-img-top add-card" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Advertisement</h5>
+            <p class="card-text"> {{ ad.1 }} </p>
+            <a href="#" class="btn btn-primary">Check It Out</a>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+
+
+</div>
+
+
+
+</div>
+
+{% else %}
+
 <div id="login-container">
     <center>
 
@@ -22,6 +108,9 @@
     </center>
 </div>
 
+{% endif %}
 
 {% endblock %}
-</html>
+
+
+

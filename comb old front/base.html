@@ -1,5 +1,8 @@
 {% load static %}
 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,7 +15,6 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/b6d5ddd578.js"></script> -->
 <!--          delete-->
-    {% block title %}Title Filler{% endblock %}
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-image: linear-gradient(50deg, #f14b62 20%, #f6b669 74%); font-family: Verdana">
@@ -27,10 +29,21 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav ml-auto">
 
         {% if user.is_authenticated %}
-            {#            <li class="nav-item active">#}
+            <li><a href="{% url 'create' %}" class="btn btn-simple">New</a></li>
+            <li><a href="#" class="btn btn-simple">Friends</a></li>
+            <li><a href="#"class="btn btn-simple">Chat</a></li>
+            <li><a href="test"class="btn btn-simple">{{user}}</a></li>
+
+
+            <li><a href="{% url 'gsplit-logout' %}" class="btn btn-simple">Log out</a></li>
+        {% else %}
+            <li><a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a></li>
+            <li><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a></li>
+        {% endif %}
+{% comment %} {#            <li class="nav-item active">#}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'gsplit-index' %}">Home <span class="sr-only">(current)</span></a>
             </li>
@@ -49,32 +62,28 @@
                     <a class="dropdown-item" href="{% url 'gsplit-friends' %}">All Friends</a>
                 </div>
             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'gsplit-login' %}">Logout</a>
+            </li>
             <li class="nav-item">
 <!--                <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-            </li>
+            </li> {% endcomment %}
         </ul>
 
-            <li><a href="{% url 'gsplit-logout' %}" class="btn btn-simple">Logout</a></li>
-             <form class="form-inline my-2 my-lg-0">
-                <a class="nav-link" style="text-decoration: none; color: gray"  href="#">Post</a>
-                <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'gsplit-chat' %}">Chat</a>
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-             </form>
-
-        {% else %}
-            <li><a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a></li>
-            <li><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a></li>
-        {% endif %}
-
-
+        {% comment %} <form class="form-inline my-2 my-lg-0">
+            <a class="nav-link" style="text-decoration: none; color: gray"  href="#">Post</a>
+            <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'gsplit-chat' %}">Chat</a>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> {% endcomment %}
     </div>
 </nav>
 
 
-    {% block content %}
-        Filler Content
-    {% endblock %}
+{% block content %}
+    Filler Content
+{% endblock %}
+
 
 
 

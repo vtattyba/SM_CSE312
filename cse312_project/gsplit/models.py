@@ -5,15 +5,16 @@ from django.urls import reverse_lazy, reverse
 import misaka
 
 
-
 # Create your models here.
 
 
 class User(auth_models.User, auth_models.PermissionsMixin):
-    
+    posts = [] # should be stored in data base
+
     def __str__(self):
         return "@{}".format(self.username)
-    
+
+
 # class UserProfile(models.Model):
 #     profile_pic = models.ImageField()
 #     user = models.ForeignKey(auth_models.User, unique=True,on_delete=models.CASCADE)
@@ -23,6 +24,8 @@ class User(auth_models.User, auth_models.PermissionsMixin):
 CurrentUser = get_user_model()
 
 from django import template
+
+
 # register = template.library()
 
 class Post(models.Model):
@@ -30,6 +33,10 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     message = models.TextField()
     message_html = models.TextField(editable=False)
+    has_photo = True
+    post_id = -1
+    photo = ''
+
 
     def __str__(self):
         return self.message
@@ -38,10 +45,18 @@ class Post(models.Model):
         self.message_html = misaka.html(self.message)
         super().save(*args, *kwargs)
 
+    def set_photo_path(self, path):
+        self.photo = path
+
     def get_absolute_url(self):
         # return reverse('single',kwargs={'username':self.owner, 'pk':self.pk})
         return reverse('all')
 
+    def set_has_photo_false(self):
+        self.has_photo = False
+
+    def set_post_id(self, post_id):
+        self.post_id = post_id
 
     class Meta:
         ordering = ['-created_at']
