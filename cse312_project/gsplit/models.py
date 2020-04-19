@@ -48,15 +48,14 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created_at']
 
-#COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
 class Comment(models.Model):
     post = models.ForeignKey(Post,related_name='comments', on_delete=models.CASCADE)
     user = models.ForeignKey(CurrentUser,related_name='commenter', on_delete=models.CASCADE)
-    content = models.TextField(max_length=160) #Limit User Input to 160 Char
+    content = models.TextField() 
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    #class Meta: 
+    #    ordering = ['-created_at']
     def __str__(self):
-        return str(CurrentUser)
-#COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
-#Registers in admin.py
-#Form start in forms.py
+        return 'Comment {} by {}'.format(self.content, self.user)
+

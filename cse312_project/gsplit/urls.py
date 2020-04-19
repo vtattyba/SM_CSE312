@@ -19,6 +19,7 @@ urlpatterns = [
 
     path('posts',views.PostList.as_view(),name ='all'),
     path('new',views.CreatePost.as_view(),name='create'),
+    path('', views.post_detail, name='post_detail'),
     # re_path(r'by/(?P<username>[-\w]+)',views.UserPosts().as_view, name='for_user'),
     # re_path(r"by/(?P<username>[-\w]+)/(?P<pk>\d+)/$",views.UserPostsDetail.as_view(),name="single"),
 

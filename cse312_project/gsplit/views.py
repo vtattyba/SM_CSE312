@@ -4,14 +4,16 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 from . import forms
 # from braces.views import SelectRelatedMixin
 from . import models
 from django.contrib.auth import get_user_model
-User = get_user_model()
 from django.contrib import messages
 
 
+
+User = get_user_model()
 
 # Create your views here.
 def index(request):
@@ -57,15 +59,17 @@ class PostList(ListView):
     model = models.Post
     template_name = "gsplit/posts/post_list.html"
 
-
 class UserPostsDetail(DetailView):
     model = models.Post
     template_name = 'gsplit/posts/post_list.html'
-
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(owner__username__iexact=self.kwargs.get("username"))
 
+def post_detail(request):
+        template_name = 'gsplit/posts/post_list.html'
+        comments = models.Comment.filter(active=True)
+        
 class CreatePost(LoginRequiredMixin, CreateView):
 
     fields = ['message','cover']

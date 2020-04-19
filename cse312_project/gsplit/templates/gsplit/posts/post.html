@@ -38,24 +38,14 @@
 {% endif %}
 
 </div>
-
-{% comment %} <p>
-    <button class="btn btn-light" type="button" data-toggle="collapse" data-target="{{post.id}}"
-            aria-expanded="false" aria-controls="collapseExample">
-        Comments
-    </button>
-</p> {% endcomment %}
-
-{% comment %} <div class="collapse" id="{{post.id}}">
-        <div class="card card-body">
-    {% for comment in comments %}
-            <div class="comment">
-                <span class="bold">{{comment.commenter}} </span> {{comment.comment}}
-            </div>
-    {% endfor %}
-        </div>
-</div> {% endcomment %}
-
-
+<hr>
+<h3>Comments</h3>
+{% for comment in post.comments.all %}
+    <div class="comment">
+        <p>{{comment.user}}: {{comment.content }}</p>
+    </div>
+{% empty %}
+    <p>No comments</p>
+{% endfor %}
 </div>
 </div>
