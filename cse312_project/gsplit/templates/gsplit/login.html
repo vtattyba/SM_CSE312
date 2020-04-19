@@ -1,4 +1,5 @@
 {% extends "gsplit/base.html" %}
+{% load bootstrap4 %}
 {% load static %}
 
 <!doctype html>
@@ -12,6 +13,15 @@
 
     <center>
 
+    <div class="container">
+        <h1>Sign IN</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input type="submit" value="Login" class="btn btn-default">
+            </form>
+    </div>
+{% comment %} 
         <form id="login-box">
             <div class="form-col align-items-center">
                <div class="spinner-border" style="width: 15rem; height: 15rem;" role="status">
@@ -52,7 +62,7 @@
                   </div>
                 </div>
 
-        </form>
+        </form> {% endcomment %}
     </center>
 
 </div>

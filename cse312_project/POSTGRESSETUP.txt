@@ -1,0 +1,12 @@
+For the team,
+
+to setup the server.
+
+step1 : brew install postgres
+step2: download pgadmin (visual postgres app)
+step3: pip3 install psycopg2
+
+You will need to create the instance on your machine/container
+of the DB with the correct name and password as per the Settings.py configuration I have used.
+
+then python3 manage.py migrate --> python3 manage.py makemigrations --> python3 manage.py migrate
