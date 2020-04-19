@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import models as auth_models
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
 import misaka
 
@@ -45,12 +46,13 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created_at']
-# class Likers(models.Model):
-#     like = models.ForeignKey(Post, related_name="likes", on_delete=models.CASCADE)
-#     user = models.ForeignKey(CurrentUser,related_name='user_likes', on_delete=models.CASCADE)
 
-#     def __str__(self):
-#         return "{}".format(self.user)
 
-#     class Meta:
-#         unique_together = ("like", "user")
+class Comment(models.Model):
+    post = models.ForeignKey(Post,related_name='comments', on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name='user', on_delete=models.CASCADE)
+    content = models.TextField(max_length=160) #Limit User Input to 160 Char
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '{}-{}'.format(self.post.title, str(User))
