@@ -5,12 +5,11 @@ from django.views.generic import CreateView, TemplateView, UpdateView, DeleteVie
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
 from . import forms
-from braces.views import SelectRelatedMixin
+# from braces.views import SelectRelatedMixin
 from . import models
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.contrib import messages
-from .forms import CommentForm
 
 
 
@@ -67,27 +66,12 @@ class UserPostsDetail(DetailView):
         queryset = super().get_queryset()
         return queryset.filter(owner__username__iexact=self.kwargs.get("username"))
 
+
 def post_detail(request):
     template_name = 'gsplit/posts/post_list.html'
-    new_comment = None
+    comments = models.Comment.filter(active=True)
 
-    if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
 
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # Save the comment to the database
-            new_comment.save()
-    else:
-        comment_form = CommentForm()
-
-    return render(request, template_name, {'post': post,
-                                           'comments': comments,
-                                           'new_comment': new_comment,
-                                           'comment_form': comment_form})
 class CreatePost(LoginRequiredMixin, CreateView):
 
     fields = ['message','cover']

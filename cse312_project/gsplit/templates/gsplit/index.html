@@ -15,8 +15,11 @@
                <div class="spinner-border" style="width: 15rem; height: 15rem;" role="status"></div>
              </div>
             <h1 style="padding-top: 40px"> FACEGRAM </h1>
-            <button type="submit" class="btn btn-success mb-2"><a href="{% url 'gsplit-login' %}" class="btn btn-simple" >Log In</a></button>
-            {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
+            <button type="submit" class="btn btn-success mb-2"><a href="posts" class="btn btn-simple" >HOME</a></button>
+                {% else %}
+                        <button type="submit" class="btn btn-success mb-2"><a href="{% url 'gsplit-login' %}" class="btn btn-simple" >Log In</a></button>
+
             <div class="card-body">
                 <h5 class="card-title">Join our Social Media</h5>
                 <div class="col-auto">
@@ -24,7 +27,6 @@
                 </div>
           </div>
             {% endif %}
-
         </form>
     </center>
 </div>

@@ -33,12 +33,12 @@
 
         {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'gsplit-index' %}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="posts">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li><a href="{% url 'create' %}" class="btn btn-simple">New Post</a></li>
-            <li><a href="#" class="btn btn-simple">Friends</a></li>
-            <li><a href="#"class="btn btn-simple">Chat</a></li>
-            <li><a href="test"class="btn btn-simple">{{user}}</a></li>
+            <li><a href="{% url 'create' %}" class="nav-link btn btn-simple">New Post</a></li>
+            <li><a href="#" class="nav-link btn btn-simple">Friends</a></li>
+            <li><a href="{% url 'gsplit-chat' %}"class="nav-link btn btn-simple">Chat</a></li>
+            <li><a href="{% url 'gsplit-profile' %}"class="nav-link btn btn-simple">{{user}}</a></li>
             <li><a href="{% url 'gsplit-logout' %}" class="btn btn-danger">Log out</a></li>
 
         {% else %}

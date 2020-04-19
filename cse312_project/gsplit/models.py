@@ -44,24 +44,19 @@ class Post(models.Model):
         # return reverse('single',kwargs={'username':self.owner, 'pk':self.pk})
         return reverse('all')
 
-
     class Meta:
         ordering = ['-created_at']
 
 #COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
 class Comment(models.Model):
     post = models.ForeignKey(Post,related_name='comments', on_delete=models.CASCADE)
-    name = models.ForeignKey(CurrentUser,related_name='commenter', on_delete=models.CASCADE)
-    body = models.TextField(max_length=80)
-    body_html = models.TextField(editable=False)
-    created_on = models.DateTimeField(auto_now=True)
-
+    user = models.ForeignKey(CurrentUser,related_name='commenter', on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return 'Comment {} by {}'.format(self.body, self.name)
+        return 'Comment {} by {}'.format(self.content, self.user)
 
-    class Meta:
-        ordering = ['created_on']
 #COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
 #Registers in admin.py
 #Form start in forms.py
