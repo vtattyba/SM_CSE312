@@ -47,7 +47,6 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created_at']
 
-#COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     # author = models.ForeignKey(CurrentUser, related_name='posts', on_delete=models.CASCADE)
@@ -62,7 +61,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
-
-#COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
-#Registers in admin.py
-#Form start in forms.py
