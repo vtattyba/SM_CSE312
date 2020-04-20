@@ -1,3 +1,4 @@
+
 {% load static %}
 <div style="width: 100%; margin-top: 40px" class="card mb-3">
     <div class="card-header">
@@ -20,13 +21,12 @@
                     <span class="bold">
                         <a href="{% url 'test' %}">
                             {{post.owner}}
-
                         </a>
                      </span>
                     <span style="margin-top: -10px">
                         {{ post.message_html|safe }}
                       </span>
-
+                        Comments: {{ post.comments.count }}
                 </p>
             </div>
             <div>
@@ -43,14 +43,44 @@
 
         </div>
 
-<h3>Comments</h3>
+<a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+
+<hr>
 {% for comment in post.comments.all %}
     <div class="comment">
-        <p>{{comment.user}}: {{comment.content }}</p>
+        <div style="float: right" class="date">{{ comment.created_date }}</div>
+        <strong> {{post.owner}}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
     </div>
 {% empty %}
-    <p>No comments</p>
+    <p>No comments here yet :(</p>
 {% endfor %}
+
+
+<!--        comment view start here-->
+<!--        <p>-->
+<!--        <button  class="btn btn-light" type="button" data-toggle="collapse" data-target="#post1"-->
+<!--                aria-expanded="false" aria-controls="collapseExample">-->
+<!--            new comment-->
+<!--        </button>-->
+<!--    </p>-->
+<!--    <div class="collapse" id="post1">-->
+<!--        <div class="card card-body">-->
+<!--            <div class="comment">-->
+
+
+
+<!--                <form method="POST"  id="commentform">-->
+<!--                    {% csrf_token %}-->
+<!--                    <input type="submit" value="Post" class="btn btn-primary btn-large">-->
+<!--                </form>-->
+
+
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
 
     </div>
 </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView, ListView, DetailView
@@ -11,6 +11,9 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.contrib import messages
 
+
+
+from .forms import CommentForm
 
 
 # Create your views here.
@@ -67,10 +70,17 @@ class UserPostsDetail(DetailView):
         return queryset.filter(owner__username__iexact=self.kwargs.get("username"))
 
 
-def post_detail(request):
-    template_name = 'gsplit/posts/post_list.html'
-    comments = models.Comment.filter(active=True)
-
+def add_comment_to_post(request, pk):
+    post = get_object_or_404(models.Post, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+    else:
+        form = CommentForm()
+    return render(request, 'gsplit/posts/comment_form.html', {'form': form})
 
 class CreatePost(LoginRequiredMixin, CreateView):
 
