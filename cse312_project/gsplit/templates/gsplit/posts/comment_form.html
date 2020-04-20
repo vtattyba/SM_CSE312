@@ -1,0 +1,9 @@
+{% extends 'gsplit/base.html' %}
+
+{% block content %}
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button href="gsplit/posts/post.html" type="submit" class="save btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% load static %}
+<div style="width: 100%; margin-top: 40px" class="card mb-3">
+    <div class="card-header">
+        <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
+        <a class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'test' %}">
+            {{post.owner}}
+        </a>
+        <!--        {{ post.owner.first_name }} {{post.owner.last_name}}-->
+        <p class="card-text card-time"><small class="text-muted">{{post.created_at}}</small></p>
+    </div>
+
+    {% if post.cover %}
+    <img src="{{ post.cover.url}}" alt="" class="card-img-top">
+    {% endif %}
+
+    <div class="card-body">
+        <div class="description">
+            <div class=" caption">
+                <p class="card-text">
+                    <span class="bold">
+                        <a href="{% url 'test' %}">
+                            {{post.owner}}
+                        </a>
+                     </span>
+                    <span style="margin-top: -10px">
+                        {{ post.message_html|safe }}
+                      </span>
+                    Comments: {{ post.comments.count }}
+                </p>
+            </div>
+            <div>
+                <span id="likenumber"
+                      style="color: black; padding-right: 5px; font-size: 25px;font-weight: lighter">9</span>
+
+                <button class="btn btn-warning">Like</button>
+            </div>
+
+            {% if user.is_authenticated and post.owner == user %}
+            <p>
+                <a class="btn btn-danger" href="{% url 'delete' pk=post.pk %}">Delete</a>
+            </p>
+            {% endif %}
+
+        </div>
+        <button class="btn btn-primary"> <a class="btn btn-default" href="{% url 'comment_work' pk=post.pk %}">Add comment</a></button>
+
+        <br>
+
+        {% for comment in post.comments.all %}
+        <div style="float: right" class="date">{{ comment.content }}</div>
+        <strong> {{post.owner}}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+        {% endfor %}
+    </div>
+</div>
