@@ -70,16 +70,14 @@ class UserPostsDetail(DetailView):
         return queryset.filter(owner__username__iexact=self.kwargs.get("username"))
 
 
-def add_comment_to_post(request, pk):
+def comment_work(request, pk):
     post = get_object_or_404(models.Post, pk=pk)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-    else:
-        form = CommentForm()
+    form = CommentForm(request.POST)
+
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.save()
     return render(request, 'gsplit/posts/comment_form.html', {'form': form})
 
 class CreatePost(LoginRequiredMixin, CreateView):

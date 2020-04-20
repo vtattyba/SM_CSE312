@@ -1,12 +1,11 @@
-
 {% load static %}
 <div style="width: 100%; margin-top: 40px" class="card mb-3">
     <div class="card-header">
         <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
-         <a  class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'test' %}">
-                    {{post.owner}}
-                </a>
-<!--        {{ post.owner.first_name }} {{post.owner.last_name}}-->
+        <a class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'test' %}">
+            {{post.owner}}
+        </a>
+        <!--        {{ post.owner.first_name }} {{post.owner.last_name}}-->
         <p class="card-text card-time"><small class="text-muted">{{post.created_at}}</small></p>
     </div>
 
@@ -26,13 +25,14 @@
                     <span style="margin-top: -10px">
                         {{ post.message_html|safe }}
                       </span>
-                        Comments: {{ post.comments.count }}
+                    Comments: {{ post.comments.count }}
                 </p>
             </div>
             <div>
-                <span style="color: black; padding-right: 5px; font-size: 25px;font-weight: lighter">0</span>
-                <div type="button" class="btn btn-danger">Like</div>
-                <i id="heart0" onclick="tg(this)" class="far fa-heart"></i>
+                <span id="likenumber"
+                      style="color: black; padding-right: 5px; font-size: 25px;font-weight: lighter">9</span>
+
+                <button class="btn btn-warning">Like</button>
             </div>
 
             {% if user.is_authenticated and post.owner == user %}
@@ -42,45 +42,14 @@
             {% endif %}
 
         </div>
+        <button class="btn btn-primary"> <a class="btn btn-default" href="{% url 'comment_work' pk=post.pk %}">Add comment</a></button>
 
-<a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+        <br>
 
-<hr>
-{% for comment in post.comments.all %}
-    <div class="comment">
-        <div style="float: right" class="date">{{ comment.created_date }}</div>
+        {% for comment in post.comments.all %}
+        <div style="float: right" class="date">{{ comment.content }}</div>
         <strong> {{post.owner}}</strong>
         <p>{{ comment.text|linebreaks }}</p>
-    </div>
-{% empty %}
-    <p>No comments here yet :(</p>
-{% endfor %}
-
-
-<!--        comment view start here-->
-<!--        <p>-->
-<!--        <button  class="btn btn-light" type="button" data-toggle="collapse" data-target="#post1"-->
-<!--                aria-expanded="false" aria-controls="collapseExample">-->
-<!--            new comment-->
-<!--        </button>-->
-<!--    </p>-->
-<!--    <div class="collapse" id="post1">-->
-<!--        <div class="card card-body">-->
-<!--            <div class="comment">-->
-
-
-
-<!--                <form method="POST"  id="commentform">-->
-<!--                    {% csrf_token %}-->
-<!--                    <input type="submit" value="Post" class="btn btn-primary btn-large">-->
-<!--                </form>-->
-
-
-
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-
+        {% endfor %}
     </div>
 </div>

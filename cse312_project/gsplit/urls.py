@@ -17,7 +17,7 @@ urlpatterns = [
     path('test', views.TestPage.as_view(), name ='test'),
     path('thanks', views.ThanksPage.as_view(), name='thanks'),
 
-    path('post/<int:pk>/comment/', views.add_comment_to_post, name='add_comment_to_post'),
+    path('post/<int:pk>/comment/', views.comment_work, name='comment_work'),
 
 
     path('posts',views.PostList.as_view(),name ='all'),

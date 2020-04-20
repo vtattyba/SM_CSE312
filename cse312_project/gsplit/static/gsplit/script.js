@@ -5,3 +5,5 @@ function tg(x) {
    var c1 = document.getElementById(x.id)
    c1.classList.toggle("fas");
 }
+
+
