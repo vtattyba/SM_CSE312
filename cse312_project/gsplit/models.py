@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import models as auth_models
 from django.contrib.auth import get_user_model
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 import misaka
 
 
@@ -9,7 +9,6 @@ import misaka
 
 
 class User(auth_models.User, auth_models.PermissionsMixin):
-    posts = [] # should be stored in data base
 
     def __str__(self):
         return "@{}".format(self.username)
@@ -34,8 +33,6 @@ class Post(models.Model):
     message = models.TextField()
     message_html = models.TextField(editable=False)
     has_photo = True
-    post_id = -1
-    photo = ''
 
 
     def __str__(self):
@@ -55,8 +52,6 @@ class Post(models.Model):
     def set_has_photo_false(self):
         self.has_photo = False
 
-    def set_post_id(self, post_id):
-        self.post_id = post_id
 
     class Meta:
         ordering = ['-created_at']
