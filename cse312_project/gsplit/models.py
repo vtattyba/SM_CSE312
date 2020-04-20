@@ -41,28 +41,15 @@ class Post(models.Model):
         super().save(*args, *kwargs)
 
     def get_absolute_url(self):
-        # return reverse('single',kwargs={'username':self.owner, 'pk':self.pk})
         return reverse('all')
 
     class Meta:
         ordering = ['-created_at']
 
-#COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    # author = models.ForeignKey(CurrentUser, related_name='posts', on_delete=models.CASCADE)
-    author = models.CharField(max_length=200)
     text = models.TextField()
     created_date =  models.DateTimeField(auto_now=True)
-    approved_comment = models.BooleanField(default=False)
-
-    def approve(self):
-        self.approved_comment = True
-        self.save()
 
     def __str__(self):
         return self.text
-
-#COMMENT MODEL IS CURRENTLY BEING WORKED ON, DO NOT SUBMIT SIMILAR TO OTHER SOURCES ONLINE
-#Registers in admin.py
-#Form start in forms.py

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.shortcuts import render, get_list_or_404, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView, ListView, DetailView
@@ -73,7 +73,6 @@ class UserPostsDetail(DetailView):
 def comment_work(request, pk):
     post = get_object_or_404(models.Post, pk=pk)
     form = CommentForm(request.POST)
-
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = post

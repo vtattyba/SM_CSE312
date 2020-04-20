@@ -43,7 +43,6 @@
 
         </div>
         <button class="btn btn-primary"> <a class="btn btn-default" href="{% url 'comment_work' pk=post.pk %}">Add comment</a></button>
-
         <br>
 
         {% for comment in post.comments.all %}
