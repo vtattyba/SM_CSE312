@@ -14,14 +14,14 @@ urlpatterns = [
     path('create_acc', views.createAcc.as_view(), name='gsplit-create_acc'),
     path('logout', auth_views.LogoutView.as_view(), name = 'gsplit-logout'),
 
-    path('test', views.TestPage.as_view(), name ='test'),
+    path('test', views.TestPage.as_view(), name='test'),
     path('thanks', views.ThanksPage.as_view(), name='thanks'),
 
     path('post/<int:pk>/comment/', views.comment_work, name='comment_work'),
 
 
-    path('posts',views.PostList.as_view(),name ='all'),
-    path('new',views.CreatePost.as_view(),name='create'),
+    path('posts', views.PostList.as_view(), name='all'),
+    path('new', views.CreatePost.as_view(), name='create'),
     # re_path(r'by/(?P<username>[-\w]+)',views.UserPosts().as_view, name='for_user'),
     # re_path(r"by/(?P<username>[-\w]+)/(?P<pk>\d+)/$",views.UserPostsDetail.as_view(),name="single"),
 

@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <div style="width: 100%; margin-top: 40px" class="card mb-3">
     <div class="card-header">
         <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
@@ -6,7 +8,7 @@
             {{post.owner}}
         </a>
         <!--        {{ post.owner.first_name }} {{post.owner.last_name}}-->
-        <p class="card-text card-time"><small class="text-muted">{{post.created_at}}</small></p>
+        <p class="card-text card-time"> <small class="text-muted">{{post.created_at}}</small> </p>
     </div>
 
     {% if post.cover %}
