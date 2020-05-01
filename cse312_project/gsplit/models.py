@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
 import misaka
 
-
 # Create your models here.
 
 
@@ -34,9 +33,26 @@ class Post(models.Model):
     message = models.TextField()
     message_html = models.TextField(editable=False)
     cover = models.ImageField(upload_to='images/', blank=True, null=True)
+    liked = models.BooleanField()
+    likes = models.IntegerField()
+    id = models.AutoField(primary_key=True)
 
     def __str__(self):
         return self.message
+
+    def has_liked(self):
+        if self.liked is False:
+            self.liked = True
+        else:
+            self.liked = False
+
+    def like(self):
+        if self.liked is False:
+            self.likes += 1
+            self.liked = True
+        else:
+            self.likes -= 1
+            self.liked = False
 
     def save(self, *args, **kwargs):
         self.message_html = misaka.html(self.message)

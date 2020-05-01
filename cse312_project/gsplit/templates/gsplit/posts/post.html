@@ -19,37 +19,32 @@
         <div class="description">
             <div class=" caption">
                 <p class="card-text">
-                    <span class="bold">
-                        <a href="{% url 'test' %}">
-                            {{post.owner}}
-                        </a>
-                     </span>
                     <span style="margin-top: -10px">
                         {{ post.message_html|safe }}
                       </span>
                     Comments: {{ post.comments.count }}
                 </p>
             </div>
-            <div>
-                <span id="likenumber"
-                      style="color: black; padding-right: 5px; font-size: 25px;font-weight: lighter">9</span>
 
-                <button class="btn btn-warning">Like</button>
+            <div>
+                <span id={{post.id}}
+                      style="color: black; padding-right: 5px; font-size: 30px;font-weight: lighter">{{post.likes}}</span>
+                <button class="btn btn-warning" onclick="like({{post.id}}, '{{post.liked}}')" style="padding: 5px"> Like </button>
             </div>
 
             {% if user.is_authenticated and post.owner == user %}
             <p>
-                <a class="btn btn-danger" href="{% url 'delete' pk=post.pk %}">Delete</a>
+                <a class="btn btn-danger" style="padding: 5px 40px" href="{% url 'delete' pk=post.pk %}">Delete</a>
             </p>
             {% endif %}
 
         </div>
-        <button class="btn btn-primary"> <a class="btn btn-default" href="{% url 'comment_work' pk=post.pk %}">Add comment</a></button>
+        <button class="btn btn-primary" style="padding: 0px"> <a class="btn btn-default" href="{% url 'comment_work' pk=post.pk %}">Add comment</a></button>
         <br>
 
         {% for comment in post.comments.all %}
         <div style="float: right" class="date">{{ comment.content }}</div>
-        <strong> {{post.owner}}</strong>
+        <strong> {{post.owner}} </strong>
         <p>{{ comment.text|linebreaks }}</p>
         {% endfor %}
     </div>

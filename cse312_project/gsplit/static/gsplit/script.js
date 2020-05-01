@@ -6,4 +6,12 @@ function tg(x) {
    c1.classList.toggle("fas");
 }
 
-
+function like(x, liked) {
+   var likes = document.getElementById(x);
+   if (liked == 'False'){
+      likes.innerText++;
+   }else{
+      likes.innerText--;
+   }
+   document.getElementById(x).innerText = likes.innerText;
+}
