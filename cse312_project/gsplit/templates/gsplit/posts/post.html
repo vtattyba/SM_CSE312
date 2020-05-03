@@ -22,7 +22,7 @@
                     <span style="margin-top: -10px">
                         {{ post.message_html|safe }}
                       </span>
-                    Comments: {{ post.comments.count }}
+                    {% comment %} Comments: {{ post.comments.count }} {% endcomment %}
                 </p>
             </div>
 
@@ -39,13 +39,22 @@
             {% endif %}
 
         </div>
-        <button class="btn btn-primary" style="padding: 0px"> <a class="btn btn-default" href="{% url 'comment_work' pk=post.pk %}">Add comment</a></button>
+        <form data-id = {{post.pk}}>
+        <input type="text" data-id={{post.pk}} name ="comment" class="form-control">
         <br>
-
-        {% for comment in post.comments.all %}
-        <div style="float: right" class="date">{{ comment.content }}</div>
-        <strong> {{post.owner}} </strong>
-        <p>{{ comment.text|linebreaks }}</p>
-        {% endfor %}
+        <button type ="button" class="btn btn-primary submit-comment"  data-id={{post.pk}}> 
+            {% comment %} <a class="btn btn-default" href="{% url 'comment_work' pk=post.pk %}"> {% endcomment %}
+            Add comment
+            {% comment %} </a> {% endcomment %}
+            </button>
+        </form>
+        <br>
+        <div id="comment-section" data-id={{post.pk}} >
+            {% for comment in post.comments.all %}
+            <div style="float: right" class="date">{{ comment.created_at }}</div>
+            <p><strong> {{comment.author}} </strong> : {{ comment.text }}</p>
+            {% endfor %}
+        </div>
+       
     </div>
 </div>

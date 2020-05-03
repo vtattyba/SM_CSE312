@@ -13,6 +13,8 @@ User = get_user_model()
 from django.contrib import messages
 
 from .forms import CommentForm
+from django.http import JsonResponse
+from django.forms.models import model_to_dict
 
 
 # Create your views here.
@@ -47,7 +49,7 @@ def chat(request):
 
 
 class createAcc(CreateView):
-    form_class = forms.UserForm
+    form_class = forms.UserForm()
     success_url = reverse_lazy('gsplit-login')
     template_name = 'gsplit/create_acc.html'
 
@@ -75,13 +77,23 @@ class UserPostsDetail(DetailView):
 
 
 def comment_work(request, pk):
-    post = get_object_or_404(models.Post, pk=pk)
-    form = CommentForm(request.POST)
-    if form.is_valid():
-        comment = form.save(commit=False)
-        comment.post = post
-        comment.save()
-    return render(request, 'gsplit/posts/comment_form.html', {'form': form})
+    print(request.POST.get('data'))
+    print(pk)
+    _post = get_object_or_404(models.Post, pk=pk)
+    comment = request.POST.get('data').split('=')[1]
+    comment = ' '.join(comment.split('%20'))
+    new_comment = models.Comment(post = _post, author=request.user, text = comment )
+    print("new comment obj", new_comment.post)
+    new_comment.save()
+    return JsonResponse({'comment': comment, 'author' : new_comment.author.__str__(), 'created_at' : new_comment.created_date}, status=200)
+
+    # post = get_object_or_404(models.Post, pk=pk)
+    # form = CommentForm(request.POST)
+    # if form.is_valid():
+    #     comment = form.save(commit=False)
+    #     comment.post = post
+    #     comment.save()
+    # return render(request, 'gsplit/posts/comment_form.html', {'form': form})
 
 
 class CreatePost(LoginRequiredMixin, CreateView):
