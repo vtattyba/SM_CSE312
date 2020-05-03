@@ -121,10 +121,32 @@ $(document).ready(()=>{
     $("form[data-id="+post_pk+"]")[0].reset()
 
    })
- 
+
+
+    $(".submit-like").click(function(){
+     console.log("like working")
+     let post_pk = $(this).data('id');
+
+    $.ajax({
+        url : '/post/'+post_pk+"/likes/",
+        type : 'post',
+        data : {
+            post_id : post_pk,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success : function(response){
+            console.log(response, 'on post: ' + post_pk)
+            $("span[data-id="+post_pk+"]").replaceWith('<span data-id='+post_pk+' id="like-count"style="color: black; padding-right: 5px; font-size: 30px;font-weight: lighter">'+ response.like_count + '</span>')
+
+
+
+        }
+    })
+
+   })
  
  })
-</script
+</script>
 </body>
 
 

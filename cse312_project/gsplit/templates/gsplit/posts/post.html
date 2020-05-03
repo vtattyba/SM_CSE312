@@ -27,9 +27,15 @@
             </div>
 
             <div>
-                <span id={{post.id}}
+
+                <span data-id="{{post.id}}" id="like-count"
                       style="color: black; padding-right: 5px; font-size: 30px;font-weight: lighter">{{post.likes}}</span>
-                <button class="btn btn-warning" onclick="like({{post.id}}, '{{post.liked}}')" style="padding: 5px"> Like </button>
+                <form data-id={{post.pk}}>
+                    <button type ="button" class="btn btn-warning submit-like" data-id={{post.pk}} style="padding: 5px">
+                        Like
+                    </button>
+                </form>
+
             </div>
 
             {% if user.is_authenticated and post.owner == user %}
@@ -39,17 +45,17 @@
             {% endif %}
 
         </div>
+
         <form data-id = {{post.pk}}>
         <input type="text" data-id={{post.pk}} name ="comment" class="form-control">
         <br>
-        <button type ="button" class="btn btn-primary submit-comment"  data-id={{post.pk}}> 
-            {% comment %} <a class="btn btn-default" href="{% url 'comment_work' pk=post.pk %}"> {% endcomment %}
+        <button type ="button" class="btn btn-primary submit-comment"  data-id={{post.pk}}>
             Add comment
-            {% comment %} </a> {% endcomment %}
             </button>
         </form>
+
         <br>
-        <div id="comment-section" data-id={{post.pk}} >
+        <div id="comment-section" data-id={{post.pk}}>
             {% for comment in post.comments.all %}
             <div style="float: right" class="date">{{ comment.created_at }}</div>
             <p><strong> {{comment.author}} </strong> : {{ comment.text }}</p>

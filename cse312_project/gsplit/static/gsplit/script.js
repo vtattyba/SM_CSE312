@@ -1,4 +1,5 @@
 console.log("loaded")
+
 function myFunction() {
    document.getElementById('fuck').classList.toggle("fas");
 }
@@ -29,9 +30,7 @@ $(document).ready(()=>{
      console.log(serializedData)
 
 
-
    })
- 
- 
+
  })
- 
+

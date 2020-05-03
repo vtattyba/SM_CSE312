@@ -82,7 +82,7 @@ def comment_work(request, pk):
     _post = get_object_or_404(models.Post, pk=pk)
     comment = request.POST.get('data').split('=')[1]
     comment = ' '.join(comment.split('%20'))
-    new_comment = models.Comment(post = _post, author=request.user, text = comment )
+    new_comment = models.Comment(post=_post, author=request.user, text=comment)
     print("new comment obj", new_comment.post)
     new_comment.save()
     return JsonResponse({'comment': comment, 'author' : new_comment.author.__str__(), 'created_at' : new_comment.created_date}, status=200)
@@ -94,6 +94,15 @@ def comment_work(request, pk):
     #     comment.post = post
     #     comment.save()
     # return render(request, 'gsplit/posts/comment_form.html', {'form': form})
+
+
+def likes(request, pk):
+    print(request.POST.get('data'))
+    print(pk)
+    _post = get_object_or_404(models.Post, pk=pk)
+    like_count = _post.like()
+    _post.save()
+    return JsonResponse({'like_count': like_count}, status=200)
 
 
 class CreatePost(LoginRequiredMixin, CreateView):

@@ -53,6 +53,7 @@ class Post(models.Model):
         else:
             self.likes -= 1
             self.liked = False
+        return self.likes
 
     def save(self, *args, **kwargs):
         self.message_html = misaka.html(self.message)

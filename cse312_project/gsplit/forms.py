@@ -7,7 +7,7 @@ from .models import Post, Comment
 class UserForm(UserCreationForm):
 
     class Meta:
-        fields = ("username",'first_name','last_name', "email", "password1", "password2")
+        fields = ("username", 'first_name', 'last_name', "email", "password1", "password2")
         model = get_user_model()
 
     def __init__(self, *args, **kwargs):
@@ -16,6 +16,7 @@ class UserForm(UserCreationForm):
         self.fields["email"].label = "Email address"
         self.fields['first_name'].label = 'First Name'
         self.fields['last_name'].label = 'Last Name'
+
 
 class CommentForm(forms.ModelForm):
 
