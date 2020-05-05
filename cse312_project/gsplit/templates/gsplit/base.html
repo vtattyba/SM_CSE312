@@ -47,7 +47,7 @@
             </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'gsplit-friends' %}">All Friends</a>
+                <a class="nav-link" href="{% url 'gsplit-friends' %}">Following</a>
                 </li>
 
              <li class="nav-item">
@@ -74,11 +74,11 @@
     </div>
 
 </nav>
-
+ {% if user.is_authenticated %}
         {% block content %}
             Filler Content
         {% endblock %}
-
+ {% endif %}
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

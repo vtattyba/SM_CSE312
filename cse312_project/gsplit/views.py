@@ -67,6 +67,16 @@ class PostList(ListView):
     template_name = "gsplit/posts/post_list.html"
 
 
+class Profile(ListView):
+    model = models.Post
+    template_name = "gsplit/profile.html"
+
+
+class Friends(ListView):
+    model = models.Followers
+    template_name = "gsplit/Friends.html"
+
+
 class UserPostsDetail(DetailView):
     model = models.Post
     template_name = 'gsplit/posts/post_list.html'
@@ -85,7 +95,7 @@ def comment_work(request, pk):
     new_comment = models.Comment(post=_post, author=request.user, text=comment)
     print("new comment obj", new_comment.post)
     new_comment.save()
-    return JsonResponse({'comment': comment, 'author' : new_comment.author.__str__(), 'created_at' : new_comment.created_date}, status=200)
+    return JsonResponse({'comment': comment, 'author': new_comment.author.__str__(), 'created_at': new_comment.created_date}, status=200)
 
     # post = get_object_or_404(models.Post, pk=pk)
     # form = CommentForm(request.POST)
@@ -94,6 +104,17 @@ def comment_work(request, pk):
     #     comment.post = post
     #     comment.save()
     # return render(request, 'gsplit/posts/comment_form.html', {'form': form})
+
+
+def follow(request, pk):
+    print(request.POST.get('data'))
+    print(pk)
+    user = get_object_or_404(models.get_user_model(), pk=pk)
+    followed = request.POST.get('data').split('=')[1]
+    followed = ' '.join(followed.split('%20'))
+    followers = models.Followers(user=user)
+    followers.save()
+    return JsonResponse({'followed': followed}, status=200)
 
 
 def likes(request, pk):
@@ -153,6 +174,7 @@ class DeletePost(LoginRequiredMixin, DeleteView):
 class HomePageView(ListView):
     model = models.Post
     template_name = 'gsplit/posts/post_list.html'
+
 
 # def login(request):
 #     return render(request, 'gsplit/login.html')

@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.contrib.auth import models as auth_models
 from django.contrib.auth import get_user_model
@@ -27,14 +28,26 @@ from django import template
 
 # register = template.library()
 
+class Followers(models.Model):
+    user = models.ForeignKey(CurrentUser, on_delete=models.CASCADE, related_name='followers')
+    # following_list = ArrayField(user.primary_key, default=list)
+    followers_count = models.IntegerField(default=0)
+
+    # def __str__(self):
+    #     return self.following_list
+
+    # def follow(self):
+    #     self.friends_list.append()
+
+
 class Post(models.Model):
     owner = models.ForeignKey(CurrentUser, related_name='posts', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
-    message = models.TextField()
+    message = models.TextField(default='')
     message_html = models.TextField(editable=False)
     cover = models.ImageField(upload_to='images/', blank=True, null=True)
-    liked = models.BooleanField()
-    likes = models.IntegerField()
+    liked = models.BooleanField(default=False)
+    likes = models.IntegerField(default=0)
     id = models.AutoField(primary_key=True)
 
     def __str__(self):
@@ -68,8 +81,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    author = models.ForeignKey(CurrentUser, related_name="commenter", on_delete=models.CASCADE, blank = True, null = True)
-    text = models.TextField(blank = True, null = True)
+    author = models.ForeignKey(CurrentUser, related_name="commenter", on_delete=models.CASCADE, blank=True, null=True)
+    text = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
