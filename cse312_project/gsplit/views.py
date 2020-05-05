@@ -161,7 +161,7 @@ def EditProfile(request):
                 
             user.save()
             profile.save()
-            return redirect(reverse_lazy('all'))
+            return redirect(reverse_lazy('gsplit-profile', kwargs={"username":request.user.username}))
     else:
         profile_form = forms.UserProfileForm(instance=request.user.userprofile)
         user_form = forms.UserEditForm(instance=request.user)
