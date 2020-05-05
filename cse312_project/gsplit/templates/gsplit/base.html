@@ -99,9 +99,10 @@ $(document).ready(()=>{
    $(".submit-comment").click(function(){
    console.log("working")
      let post_pk = $(this).data('id');
-     let serializedData = $("form[data-id="+post_pk+"]").serialize()
-
-     console.log(serializedData)
+     let serializedData = $("form[data-id="+post_pk+"]").serialize();
+     $(this).getElementsByClassName("form-control").clearQueue()
+       console.log(f);
+     console.log(serializedData);
 
     $.ajax({
         url : '/post/'+post_pk+"/comment/",
@@ -113,12 +114,11 @@ $(document).ready(()=>{
 ,
         },
         success : function(response){
-            console.log(response)
-            $("div[data-id="+post_pk+"]").append('<div style="float: right" class="date">' +'</div> <p><strong>' + response.author +'</strong> : '+response.comment+'</p>') 
-
+            console.log(response);
+            $("div[data-id="+post_pk+"]").append('<div style="float: right" class="date">' +'</div> <p><strong>' + response.author +'</strong> : '+response.comment+'</p>');
         }
     }) 
-    $("form[data-id="+post_pk+"]")[0].reset()
+    $("form[data-id="+post_pk+"]")[0].reset();
 
    })
 

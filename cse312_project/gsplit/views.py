@@ -82,10 +82,12 @@ def comment_work(request, pk):
     _post = get_object_or_404(models.Post, pk=pk)
     comment = request.POST.get('data').split('=')[1]
     comment = ' '.join(comment.split('%20'))
-    new_comment = models.Comment(post=_post, author=request.user, text=comment)
-    print("new comment obj", new_comment.post)
-    new_comment.save()
-    return JsonResponse({'comment': comment, 'author' : new_comment.author.__str__(), 'created_at' : new_comment.created_date}, status=200)
+    if comment != '':
+        new_comment = models.Comment(post=_post, author=request.user, text=comment)
+        new_comment.has_comment()
+        print("new comment obj", new_comment.post)
+        new_comment.save()
+        return JsonResponse({'comment': comment, 'author': new_comment.author.__str__(), 'created_at': new_comment.created_date}, status=200)
 
     # post = get_object_or_404(models.Post, pk=pk)
     # form = CommentForm(request.POST)

@@ -35,10 +35,13 @@ class Post(models.Model):
     cover = models.ImageField(upload_to='images/', blank=True, null=True)
     liked = models.BooleanField(default=False)
     likes = models.IntegerField(default=0)
-#    id = models.AutoField(primary_key=True)
+    comment_bool = models.BooleanField(default=False)
 
     def __str__(self):
         return self.message
+
+    def has_comment(self):
+        self.comment_bool = True
 
     def has_liked(self):
         if self.liked is False:
@@ -68,9 +71,12 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    author = models.ForeignKey(CurrentUser, related_name="commenter", on_delete=models.CASCADE, blank = True, null = True)
-    text = models.TextField(blank = True, null = True)
+    author = models.ForeignKey(CurrentUser, related_name="commenter", on_delete=models.CASCADE, blank=True, null = True)
+    text = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now=True)
+
+    def has_comment(self):
+        self.post.has_comment()
 
     def __str__(self):
         strval = self.text

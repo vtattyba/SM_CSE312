@@ -4,7 +4,7 @@
 <div style="width: 100%; margin-top: 40px" class="card mb-3">
     <div class="card-header">
         <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
-        <a class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'test' %}">
+        <a class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'gsplit-profile' %}">
             {{post.owner}}
         </a>
         <!--        {{ post.owner.first_name }} {{post.owner.last_name}}-->
@@ -56,13 +56,14 @@
 
 
         <br>
-        {% if post.comments.count > 0%}
+
+
         <div id="comment-section" data-id={{post.pk}}>
             {% for comment in post.comments.all %}
             <div style="float: right" class="date">{{ comment.created_at }}</div>
             <p><strong> {{comment.author}} </strong> : {{ comment.text }}</p>
             {% endfor %}
         </div>
-        {%endif%}
+
     </div>
 </div>
