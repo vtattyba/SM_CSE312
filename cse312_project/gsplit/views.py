@@ -138,6 +138,13 @@ class UserProfile(LoginRequiredMixin, DetailView):
         username_ = self.kwargs.get('username')
         return get_object_or_404(models.UserProfile, user__username=self.kwargs.get('username'))
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+    
+        user_posts = models.Post.objects.filter(owner__username=self.kwargs.get('username'))
+        context['user_posts'] = models.Post.objects.filter(owner__username=self.kwargs.get('username'))
+        return context
+
 class DeletePost(LoginRequiredMixin, DeleteView):
     model = models.Post
     success_url = reverse_lazy("all")

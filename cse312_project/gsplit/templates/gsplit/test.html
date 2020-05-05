@@ -6,6 +6,10 @@
   <p>{{userprofile.user}}</p>
   <p>{{userprofile.bio}}</p>
 <img src={{userprofile.profile_pic.url}} alt="404" height="42" width="42">
+
+		{% for post in user_posts %}
+			{% include "gsplit/posts/post.html" %}
+		{% endfor %}
 </div>
 
 
