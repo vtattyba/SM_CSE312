@@ -153,6 +153,12 @@ def EditProfile(request):
             user = user_form.save(commit=False)
             profile = profile_form.save(commit=False)
             profile.user = user
+            print(request.FILES)
+            if 'profile_pic' in request.FILES:
+
+                print('got a picture')
+                profile.profile_pic = request.FILES['profile_pic']
+                
             user.save()
             profile.save()
             return redirect(reverse_lazy('all'))
