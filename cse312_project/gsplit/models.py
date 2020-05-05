@@ -4,6 +4,9 @@ from django.contrib.auth import get_user_model
 # from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
 import misaka
+CurrentUser = get_user_model()
+
+from django import template
 
 # Create your models here.
 
@@ -14,15 +17,18 @@ class User(auth_models.User, auth_models.PermissionsMixin):
         return "@{}".format(self.username)
 
 
-# class UserProfile(models.Model):
-#     profile_pic = models.ImageField()
-#     user = models.ForeignKey(auth_models.User, unique=True,on_delete=models.CASCADE)
-#
+class UserProfile(models.Model):
+    profile_pic = models.ImageField(upload_to="images/", blank=True, null=True, default = "images/BlueHead.jpg")
+    user = models.OneToOneField(CurrentUser, unique=True,on_delete=models.CASCADE, null=True)
+    bio = models.TextField(default="We see you haven't made your profile yet. Go ahead and edit your profile with your information !")
+    bio_html = models.TextField(editable=False)
 
+    def __str__(self):
+        return self.bio
 
-CurrentUser = get_user_model()
-
-from django import template
+    # def save(self, *args, **kwargs):
+    #     self.bio_html = misaka.html(self.bio)
+    #     super().save(*args, *kwargs)
 
 
 # register = template.library()

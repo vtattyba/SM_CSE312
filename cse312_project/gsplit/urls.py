@@ -4,7 +4,9 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.index, name='gsplit-index'),
-    path('profile', views.profile, name='gsplit-profile'),
+    # path(r'profile/(?P<username>[-\w]+)', views.UserProfile.as_view(), name='gsplit-profile'),
+    path('profile/<slug:username>', views.UserProfile.as_view(), name='gsplit-profile'),
+
     path('friends', views.friends, name='gsplit-friends'),
     path('chat', views.chat, name='gsplit-chat'),
 

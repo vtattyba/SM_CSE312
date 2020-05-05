@@ -43,7 +43,7 @@
                 <a class="nav-link" href="{% url 'all' %}"> Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'gsplit-profile' %}">Profile</a>
+                <a class="nav-link" href="{% url 'gsplit-profile' username=user.username %}">Profile</a>
             </li>
 
               <li class="nav-item">
@@ -100,7 +100,9 @@ $(document).ready(()=>{
    console.log("working")
      let post_pk = $(this).data('id');
      let serializedData = $("form[data-id="+post_pk+"]").serialize()
-
+      if(serializedData == "comment="){
+          alert("Comment cannot be empty")
+      }else{
      console.log(serializedData)
 
     $.ajax({
@@ -117,7 +119,8 @@ $(document).ready(()=>{
             $("div[data-id="+post_pk+"]").append('<div style="float: right" class="date">' +'</div> <p><strong>' + response.author +'</strong> : '+response.comment+'</p>') 
 
         }
-    }) 
+    }) }
+
     $("form[data-id="+post_pk+"]")[0].reset()
 
    })

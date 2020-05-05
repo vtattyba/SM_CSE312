@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView, ListView, DetailView
+from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView, ListView, DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
 from . import forms
 # from braces.views import SelectRelatedMixin
 from . import models
 from django.contrib.auth import get_user_model
+from django.contrib.auth import models as auth_model
+
 
 User = get_user_model()
 from django.contrib import messages
@@ -15,6 +17,8 @@ from django.contrib import messages
 from .forms import CommentForm
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
@@ -29,8 +33,8 @@ def index(request):
     return render(request, 'gsplit/index.html', context=c)
 
 
-def profile(request):
-    return render(request, 'gsplit/profile.html')
+
+    
 
 
 def friends(request):
@@ -75,7 +79,7 @@ class UserPostsDetail(DetailView):
         queryset = super().get_queryset()
         return queryset.filter(owner__username__iexact=self.kwargs.get("username"))
 
-
+@login_required
 def comment_work(request, pk):
     print(request.POST.get('data'))
     print(pk)
@@ -95,7 +99,7 @@ def comment_work(request, pk):
     #     comment.save()
     # return render(request, 'gsplit/posts/comment_form.html', {'form': form})
 
-
+@login_required
 def likes(request, pk):
     print(request.POST.get('data'))
     print(pk)
@@ -117,24 +121,22 @@ class CreatePost(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-# class UserPosts(ListView):
-#     model = models.Post
-#     template_name = 'gsplit/profile.html'
+class UserProfile(LoginRequiredMixin, DetailView):
+    model = models.UserProfile
+    template_name = 'gsplit/test.html'
+    # queryset = models.User.objects.all()
+    # slug_field = 'username'
+    # slug_url_kwarg = 'username'
+    
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+       
+    #     print('-------------',self.kwargs.get('username'))
+    #     return queryset.filter(user__username = self.kwargs.get('username'))
 
-#     def get_queryset(self):
-#         try:
-#             self.post_user = User.objects.prefetch_related("posts").get(
-#                 username__iexact=self.kwargs.get("username")
-#             )
-#         except User.DoesNotExist:
-
-#             raise Http404
-#         else:
-#             return self.post_user.posts.all()
-
-#     def context_data(self,**kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['post_user'] = self.post_user
+    def get_object(self):
+        username_ = self.kwargs.get('username')
+        return get_object_or_404(models.UserProfile, user__username=self.kwargs.get('username'))
 
 class DeletePost(LoginRequiredMixin, DeleteView):
     model = models.Post
