@@ -18,7 +18,7 @@ class User(auth_models.User, auth_models.PermissionsMixin):
 
 
 class UserProfile(models.Model):
-    profile_pic = models.ImageField(upload_to="images/", blank=True, null=True, default = "images/BlueHead.jpg")
+    profile_pic = models.ImageField(upload_to="images/", blank=True, null=True, default = "BlueHead.jpg")
     user = models.OneToOneField(CurrentUser, unique=True,on_delete=models.CASCADE, null=True)
     bio = models.TextField(default="We see you haven't made your profile yet. Go ahead and edit your profile with your information !")
     bio_html = models.TextField(editable=False)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404, redirect
 from django.http import HttpResponse
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView, ListView, DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
@@ -53,7 +53,7 @@ def chat(request):
 
 
 class createAcc(CreateView):
-    form_class = forms.UserForm()
+    form_class = forms.UserForm
     success_url = reverse_lazy('gsplit-login')
     template_name = 'gsplit/create_acc.html'
 
@@ -144,6 +144,26 @@ class UserProfile(LoginRequiredMixin, DetailView):
         user_posts = models.Post.objects.filter(owner__username=self.kwargs.get('username'))
         context['user_posts'] = models.Post.objects.filter(owner__username=self.kwargs.get('username'))
         return context
+
+def EditProfile(request):
+    if request.method == "POST":
+        user_form = forms.UserEditForm(request.POST, instance=request.user)
+        profile_form = forms.UserProfileForm(request.POST, instance=request.user.userprofile)
+        if user_form.is_valid():
+            user = user_form.save(commit=False)
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            user.save()
+            profile.save()
+            return redirect(reverse_lazy('all'))
+    else:
+        profile_form = forms.UserProfileForm(instance=request.user.userprofile)
+        user_form = forms.UserEditForm(instance=request.user)
+
+        return render(request, 'gsplit/EditProfile.html',{'u_form': user_form, 
+                                                          'p_form':profile_form})
+
+
 
 class DeletePost(LoginRequiredMixin, DeleteView):
     model = models.Post
