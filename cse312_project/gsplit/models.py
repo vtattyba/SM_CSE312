@@ -39,8 +39,8 @@ class Post(models.Model):
     message = models.TextField()
     message_html = models.TextField(editable=False)
     cover = models.ImageField(upload_to='images/', blank=True, null=True)
-    liked = models.BooleanField()
-    likes = models.IntegerField()
+    liked = models.BooleanField(default=0)
+    likes = models.IntegerField(default=0)
     id = models.AutoField(primary_key=True)
 
     def __str__(self):
