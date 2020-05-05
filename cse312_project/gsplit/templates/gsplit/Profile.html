@@ -13,14 +13,14 @@
     <div class="inner-timeline-left-profile">
         <div id="profile">
             <div id="my-image">
-                <img src="{% static 'gsplit/images/2.jpg'%}" alt="image" width="743" height="743">
+                <img src="{{userprofile.profile_pic.url}}" alt="image" width="743" height="743">
             </div>
             <div id="profile-me">
                 <div >
                     <center>
                          <h1 id="name">
 
-                        {{user.username}}
+                        {{userprofile.user.username}}
                     </h1>
                     </center>
                 </div>
@@ -30,23 +30,21 @@
                       <li class="nav-item">
                         <a class="nav-link active" href="#">About</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Post</a>
-                      </li>
-                      <li class="nav-item">
-                         <a class="nav-link" href="#">Photos</a>
-                      </li>
                     </ul>
                   </div>
                   <div class="card-body">
-                    {{user.profile.bio}}
+                    {{userprofile.bio}}
 
                   </div>
                 </div>
             </div>
             <div id="profile-left">
+		        {% for post in user_posts %}
+			        {% include "gsplit/posts/post.html" %}
+		        {% endfor %}
 
-                <div class="card mb-3">
+
+                {% comment %} <div class="card mb-3">
                     <div class="card-header">
                         <img class="post-icon" src="{% static 'gsplit/images/3.jpg' %}">
                         Full Name
@@ -209,7 +207,7 @@
                         You have reached the end!
                     </center>
 
-                </div>
+                </div> {% endcomment %}
             </div>
             <div id="profile-right">
                 <div class="card">

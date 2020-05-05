@@ -123,7 +123,7 @@ class CreatePost(LoginRequiredMixin, CreateView):
 
 class UserProfile(LoginRequiredMixin, DetailView):
     model = models.UserProfile
-    template_name = 'gsplit/test.html'
+    template_name = 'gsplit/Profile.html'
     # queryset = models.User.objects.all()
     # slug_field = 'username'
     # slug_url_kwarg = 'username'
