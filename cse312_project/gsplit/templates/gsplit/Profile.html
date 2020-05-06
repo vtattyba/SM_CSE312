@@ -17,8 +17,10 @@
                 <img src="{{userprofile.profile_pic.url}}" alt="image" width="743" height="743">
             </div>
             <div id="profile-me">
-                         <a class="btn btn-danger" style="padding: 5px 40px" href="{% url 'gsplit-edit' %}"></i>Edit</a>
+                 {% if userprofile.user == user%}
 
+                <a class="btn btn-danger" style="padding: 5px 40px" href="{% url 'gsplit-edit' %}"></i>Edit</a>
+                 {% endif %}
                 <div >
                     <center>
                          <h1 id="name">

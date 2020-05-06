@@ -91,12 +91,12 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'cse312',
+#         'NAME': 'Cse312',
 #         'USER': 'postgres',
 #         'PASSWORD': 'cse312',
 #         'HOST': "127.0.0.1",
 #         'PORT': '5432'
-#
+
 #     },
 #     'OPTIONS': {
 #         'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
