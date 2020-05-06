@@ -1,87 +1,66 @@
 {% extends "gsplit/base.html" %}
 {% load static %}
 
+<!doctype html>
+<html lang="en">
+
      {% block title %}<title>Profile</title>{% endblock %}
 
 
 
 {% block content %}
-
 <div id="Outer-timeline">
-
     <div class="inner-timeline-left-profile">
-
-
         <div id="profile">
+
             <div id="my-image">
-                <img src="{% static 'gsplit/images/2.jpg'%}" alt="image" width="743" height="743">
+                <img src="{{userprofile.profile_pic.url}}" alt="image" width="743" height="743">
             </div>
             <div id="profile-me">
+                    <span id=follower-count style="font-size: 20px; font-weight: lighter"> Followers: {{userprofile.followers.count}} </span>
+                    {% if userprofile.user == user %}
+                        <br>
+                         <a class="btn btn-danger" style="border-radius: 100px; width: 8%" href="{% url 'gsplit-edit' %}"></i>Edit</a>
+                    {% else %}
+                        <div style="padding: 10px; ">
+                            <form data-id = follow-{{userprofile.pk}}>
+                                <input data-id = follow-{{userprofile.pk}} name="current_user" value="{{user.pk}}" type="hidden">
+                                <button type ="button" class="btn btn-primary submit-follow" style="border-radius: 100px; width: 15%" data-id={{userprofile.pk}}>
+                                    Follow
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
                 <div >
                     <center>
                          <h1 id="name">
 
-                        Full Name
+                        {{userprofile.user.username}}
+
                     </h1>
+                    <h4> {{userprofile.user.first_name}} {{userprofile.user.last_name}}</h4>
                     </center>
                 </div>
-                <div style="padding: 10px; ">
-                    <form data-id = {{profile.pk}}>
-                        <p style="font-size: 20px; font-weight: lighter">Followers: 0</p>
-                        <button type ="button" class="btn btn-primary submit-follow" style="border-radius: 100px; width: 15%" data-id={{profile.pk}}>
-                            Follow
-                        </button>
-                    </form>
-
-                </div>
-
                  <div class="card ">
                   <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                       <li class="nav-item">
                         <a class="nav-link active" href="#">About</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Post</a>
-                      </li>
-                      <li class="nav-item">
-                         <a class="nav-link" href="#">Photos</a>
-                      </li>
                     </ul>
                   </div>
                   <div class="card-body">
-                    “I’m selfish, impatient and a little insecure.
-                      I make mistakes, I am out of control and at
-                      times hard to handle. But if you can’t handle
-                      me at my worst, then you sure as hell don’t
-                      deserve me at my best.”
+                    {{userprofile.bio}}
+
                   </div>
                 </div>
             </div>
+            <div id="profile-left">
+		        {% for post in user_posts %}
+			        {% include "gsplit/posts/post.html" %}
+		        {% endfor %}
 
-                <div class='container'>
-
-                    <div class="col-md-8">
-
-                    {% if post_list.count == 0 %}
-                        <h1>Seems This User Has No Post Yet</h1>
-                    {% else %}
-                        {% for post in post_list %}
-                            {% include "gsplit/posts/post.html" %}
-                        {% endfor %}
-                    {% endif %}
-                    </div>
-                </div>
-
-
-                <div class="card">
-                    <center class="card-body">
-                        You have reached the end!
-                    </center>
-                </div>
-
-
-
+            </div>
 <!--            <div id="profile-right">-->
 <!--                <div class="card">-->
 <!--                  <div class="card-body">-->
@@ -109,13 +88,13 @@
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
+
 <!--            </div>-->
 
         </div>
-
     </div>
-
 
 </div>
 
 {% endblock %}
+</html>

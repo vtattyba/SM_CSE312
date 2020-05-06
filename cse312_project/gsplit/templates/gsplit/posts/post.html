@@ -4,8 +4,8 @@
 <div style="width: 100%; margin-top: 40px" class="card mb-3">
     <div class="card-header">
         <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
-        <a class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'test' %}">
-            {{post.owner}}
+        <a class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'gsplit-profile' username=post.owner.username %}">
+            {{post.owner.username}}
         </a>
         <!--        {{ post.owner.first_name }} {{post.owner.last_name}}-->
         <p class="card-text card-time"> <small class="text-muted">{{post.created_at}}</small> </p>
@@ -30,7 +30,8 @@
 
                 <span data-id="{{post.id}}" id="like-count"
                       style="color: black; padding-right: 5px; font-size: 30px;font-weight: lighter">{{post.likes}}</span>
-                <form data-id={{post.pk}}>
+                <form data-id=like-{{post.pk}}>
+                    <input data-id = like-{{post.pk}} name="current_user" value="{{user.pk}}" type="hidden">
                     <button type ="button" class="btn btn-warning submit-like" data-id={{post.pk}} style="padding: 5px">
                         Like
                     </button>
@@ -47,7 +48,7 @@
         </div>
 
         <form data-id = {{post.pk}}>
-        <input type="text" data-id={{post.pk}} name ="comment" class="form-control">
+        <input type="text" data-id={{post.pk}} name ="comment" class="form-control" required>
         <br>
         <button type ="button" class="btn btn-primary submit-comment"  data-id={{post.pk}}>
             Add comment
@@ -61,6 +62,6 @@
             <p><strong> {{comment.author}} </strong> : {{ comment.text }}</p>
             {% endfor %}
         </div>
-       
+
     </div>
 </div>

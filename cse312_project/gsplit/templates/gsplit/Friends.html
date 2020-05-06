@@ -9,7 +9,7 @@
 
 <div id="Outer-timeline">
     <div class="inner-timeline-left">
-        {% for friend in following_list %}
+        {% for friend in user.userprofile.following.all %}
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row no-gutters">
             <div class="col-md-4">
@@ -19,8 +19,10 @@
               <div class="card-body">
                   <div class="Friends-card">
                       <div class="friend-text">
-                            <h5 class="card-title" style="font-size: 30px">{{friend.username}}tim</h5>
-                            <p class="card-text"><small class="text-muted">{{friend.followers_count}} boi Friends</small></p>
+                            <h5 class="card-title" style="font-size: 30px">{{friend}}</h5>
+                            <p class="card-text">
+                                <small class="text-muted">Followers: {{friend.followers.count}}</small>
+                            </p>
                       </div>
 <!--                      <div>-->
 <!--                            <div class="dropdown">-->

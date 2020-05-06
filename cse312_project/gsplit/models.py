@@ -3,10 +3,15 @@ from django.db import models
 from django.contrib.auth import models as auth_models
 from django.contrib.auth import get_user_model
 # from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 import misaka
+from django.db.models import Count
+
+from django import template
 
 # Create your models here.
+CurrentUser = get_user_model()
 
 
 class User(auth_models.User, auth_models.PermissionsMixin):
@@ -15,29 +20,28 @@ class User(auth_models.User, auth_models.PermissionsMixin):
         return "@{}".format(self.username)
 
 
-# class UserProfile(models.Model):
-#     profile_pic = models.ImageField()
-#     user = models.ForeignKey(auth_models.User, unique=True,on_delete=models.CASCADE)
-#
+class Follows(object):
+    pass
 
 
-CurrentUser = get_user_model()
+class UserProfile(models.Model):
+    profile_pic = models.ImageField(upload_to="images/", blank=True, null=True, default="BlueHead.jpg")
+    user = models.OneToOneField(CurrentUser, unique=True, on_delete=models.CASCADE, null=True)
+    bio = models.TextField(default="We see you haven't made your profile yet. Go ahead and edit your profile with your information !")
+    bio_html = models.TextField(editable=False)
+    following = models.ManyToManyField('self', through='Follows', through_fields=('follower', 'followee'), symmetrical=False, related_name='+')
+    followers = models.ManyToManyField('self', through='Follows', through_fields=('followee', 'follower'), symmetrical=False, related_name='+')
 
-from django import template
+    def __str__(self):
+        # return self.bio
+        return self.user.username
 
+
+class Follows(models.Model):
+    followee = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+')
+    follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+')
 
 # register = template.library()
-
-class Followers(models.Model):
-    user = models.ForeignKey(CurrentUser, on_delete=models.CASCADE, related_name='followers')
-    # following_list = ArrayField(user.primary_key, default=list)
-    followers_count = models.IntegerField(default=0)
-
-    # def __str__(self):
-    #     return self.following_list
-
-    # def follow(self):
-    #     self.friends_list.append()
 
 
 class Post(models.Model):
@@ -53,19 +57,12 @@ class Post(models.Model):
     def __str__(self):
         return self.message
 
-    def has_liked(self):
-        if self.liked is False:
-            self.liked = True
-        else:
-            self.liked = False
-
     def like(self):
-        if self.liked is False:
+        if not self.liked:
             self.likes += 1
-            self.liked = True
         else:
             self.likes -= 1
-            self.liked = False
+        self.liked = not self.liked
         return self.likes
 
     def save(self, *args, **kwargs):
