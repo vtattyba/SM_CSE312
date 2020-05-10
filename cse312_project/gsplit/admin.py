@@ -1,7 +1,7 @@
 from django.contrib import admin
 from . import models
 
-from .models import Post, Comment, UserProfile, Follows
+from .models import Post, Comment, UserProfile, Follows, Chat
 
 # class CommentAdmin(admin.ModelAdmin):
 #     list_display = ('name', 'body', 'post', 'created_on', 'active')
@@ -16,4 +16,5 @@ admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(UserProfile)
 admin.site.register(Follows)
+admin.site.register(Chat)
 

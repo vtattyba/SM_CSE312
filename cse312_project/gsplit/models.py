@@ -6,10 +6,9 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 import misaka
+import uuid
 from django.db.models import Count
-
 from django import template
-
 # Create your models here.
 CurrentUser = get_user_model()
 
@@ -31,7 +30,6 @@ class UserProfile(models.Model):
     bio_html = models.TextField(editable=False)
     following = models.ManyToManyField('self', through='Follows', through_fields=('follower', 'followee'), symmetrical=False, related_name='+')
     followers = models.ManyToManyField('self', through='Follows', through_fields=('followee', 'follower'), symmetrical=False, related_name='+')
-
     def __str__(self):
         # return self.bio
         return self.user.username
@@ -39,7 +37,7 @@ class UserProfile(models.Model):
 
 class Follows(models.Model):
     followee = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+')
-    follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+')
+    follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+') #tg
 
 # register = template.library()
 
@@ -86,6 +84,12 @@ class Comment(models.Model):
         strval = self.text
         return strval
 
-    # def save(self, *args, **kwargs):
-    #     self.text_html = misaka.html(self.text)
-    #     super().save(*args, *kwargs)
+
+class Chat(models.Model):
+    sender = models.ForeignKey(UserProfile, on_delete = models.CASCADE, null = True, related_name='sender')
+    receiver = models.ForeignKey(UserProfile, on_delete = models.CASCADE, null = True, related_name='receiver')
+    message = models.TextField(null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.message

@@ -55,7 +55,7 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto" style="justify-content: left">
-            <a class="nav-link" style="text-decoration: none; color: black; font-size: 15px" > User: {{user.username}} </a>
+            <a class="nav-link" style="text-decoration: none; color: #181818; font-size: 15px" > {{user.username}} </a>
             <form class="form-inline my-2 my-lg-0">
                 <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'gsplit-chat' %}"> Chat </a>
                 <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'create' %}"> Post </a>
@@ -65,10 +65,8 @@
         </ul>
 
         {% else %}
-
-            <li><a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a></li>
-            <li><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a></li>
-
+            <a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a>
+            <a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a>
         {% endif %}
 
     </div>
@@ -94,6 +92,7 @@
         crossorigin="anonymous"></script>
 
 <script>
+    console.log("fyuck")
 $(document).ready(()=>{
 
    $(".submit-comment").click(function(){
@@ -169,6 +168,62 @@ $(document).ready(()=>{
    })
 
  })
+
+
+ document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+
+const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + roomName
+            + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            document.querySelector('#chat-log').value += (data.message + '\n');
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+
+
+
+
+
+
+
+
 </script>
 </body>
 

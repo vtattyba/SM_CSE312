@@ -252,3 +252,10 @@ class HomePageView(ListView):
 
 # def login(request):
 #     return render(request, 'gsplit/login.html')
+#
+# def index(request):
+#     return render(request, 'gsplit/chat.html')
+def room(request, room_name):
+    return render(request, 'gsplit/real_chat.html', {
+        'room_name': room_name
+    })
