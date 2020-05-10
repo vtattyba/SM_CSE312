@@ -20,10 +20,6 @@ class User(auth_models.User, auth_models.PermissionsMixin):
         return "@{}".format(self.username)
 
 
-class Follows(object):
-    pass
-
-
 class UserProfile(models.Model):
     profile_pic = models.ImageField(upload_to="images/", blank=True, null=True, default="BlueHead.jpg")
     user = models.OneToOneField(CurrentUser, unique=True, on_delete=models.CASCADE, null=True)
@@ -31,6 +27,7 @@ class UserProfile(models.Model):
     bio_html = models.TextField(editable=False)
     following = models.ManyToManyField('self', through='Follows', through_fields=('follower', 'followee'), symmetrical=False, related_name='+')
     followers = models.ManyToManyField('self', through='Follows', through_fields=('followee', 'follower'), symmetrical=False, related_name='+')
+    id = models.AutoField(primary_key=True)
 
     def __str__(self):
         # return self.bio
@@ -41,8 +38,6 @@ class Follows(models.Model):
     followee = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+')
     follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+')
 
-# register = template.library()
-
 
 class Post(models.Model):
     owner = models.ForeignKey(CurrentUser, related_name='posts', on_delete=models.CASCADE)
@@ -50,20 +45,18 @@ class Post(models.Model):
     message = models.TextField(default='')
     message_html = models.TextField(editable=False)
     cover = models.ImageField(upload_to='images/', blank=True, null=True)
-    liked = models.BooleanField(default=False)
-    likes = models.IntegerField(default=0)
+    post = models.ManyToManyField('self', 'Likes')
     id = models.AutoField(primary_key=True)
+    liked = models.ManyToManyField('UserProfile')
 
     def __str__(self):
         return self.message
 
-    def like(self):
-        if not self.liked:
-            self.likes += 1
-        else:
-            self.likes -= 1
-        self.liked = not self.liked
-        return self.likes
+    # def like(self):
+    #
+    #     self.likes += 1
+    #
+    #     return self.likes
 
     def save(self, *args, **kwargs):
         self.message_html = misaka.html(self.message)

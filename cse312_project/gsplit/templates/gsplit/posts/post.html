@@ -29,7 +29,7 @@
             <div>
 
                 <span data-id="{{post.id}}" id="like-count"
-                      style="color: black; padding-right: 5px; font-size: 30px;font-weight: lighter">{{post.likes}}</span>
+                      style="color: black; padding-right: 5px; font-size: 30px;font-weight: lighter">{{post.liked.count}}</span>
                 <form data-id=like-{{post.pk}}>
                     <input data-id = like-{{post.pk}} name="current_user" value="{{user.pk}}" type="hidden">
                     <button type ="button" class="btn btn-warning submit-like" data-id={{post.pk}} style="padding: 5px">
