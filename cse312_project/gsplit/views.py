@@ -123,7 +123,19 @@ def likes(request, pk):
     print('request:', request.POST.get('data'))
     print('pk:', pk)
     post = get_object_or_404(models.Post, pk=pk)
-    count = post.like()
+
+    user = request.POST.get('data').split('=')[1]
+    user = ' '.join(user.split('%20'))
+    print('current user id:', user)
+    user = get_object_or_404(models.UserProfile, pk=user)
+
+    if user in post.liked.all():
+        post.liked.remove(user)
+    else:
+        post.liked.add(user)
+
+    count = post.liked.count()
+
     post.save()
     return JsonResponse({'like_count':  count}, status=200)
 
