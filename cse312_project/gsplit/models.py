@@ -35,7 +35,7 @@ class UserProfile(models.Model):
 
 class Follows(models.Model):
     followee = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+')
-    follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+') #tg
+    follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+') 
 
 
 class Post(models.Model):
