@@ -67,6 +67,12 @@ class PostList(ListView):
     model = models.Post
     template_name = "gsplit/posts/post_list.html"
 
+    def get_queryset(self):
+        q1 = models.Post.objects.filter(owner__userprofile__followers=self.request.user.userprofile)
+        q2 = models.Post.objects.filter(owner__username=self.request.user.username)
+        final = q1 | q2
+        return final.distinct()
+
 
 class Profile(ListView):
     model = models.Post
