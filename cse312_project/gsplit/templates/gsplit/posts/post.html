@@ -3,7 +3,7 @@
 
 <div style="width: 100%; margin-top: 40px" class="card mb-3">
     <div class="card-header">
-        <img class="post-icon" src="{{ post.owner.userprofile.profile_pic.url }}" alt='404'>
+        <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
         <a class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'gsplit-profile' username=post.owner.username %}">
             {{post.owner.username}}
         </a>

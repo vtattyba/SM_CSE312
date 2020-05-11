@@ -11,9 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import psycopg2.extensions
 
-from channels_redis.core import RedisChannelLayer
+import psycopg2.extensions
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -41,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap4',
-    'channels'
+    'bootstrap4'
+
 ]
 
 MIDDLEWARE = [
@@ -74,16 +73,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cse312_project.wsgi.application'
-ASGI_APPLICATION = 'cse312_project.urls.application'
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 

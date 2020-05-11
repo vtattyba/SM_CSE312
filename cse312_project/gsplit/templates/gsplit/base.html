@@ -12,20 +12,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
      <script type="text/javascript" src="{% static 'gsplit/script.js' %}"></script>
+
+<!--    delete-->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b6d5ddd578.js"></script> -->
+<!--          delete-->
     {% block title %} <title> Default </title> {% endblock %}
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-image: linear-gradient(50deg, #f14b62 20%, #f6b669 74%); font-family: Verdana">
 
+    <a class="navbar-brand" href="#">
         <div class="spinner-grow" style="width: 2rem; height: 2rem;" role="status">
          <span class="sr-only"></span>
         </div>
+    </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
         {% if user.is_authenticated %}
         <ul class="navbar-nav" style="justify-content: left">
             <li class="nav-item active">
@@ -45,18 +55,26 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto" style="justify-content: left">
-            <a class="nav-link" style="text-decoration: none; color: #181818; font-size: 15px" > {{user.username}} </a>
+            <a class="nav-link" style="text-decoration: none; color: black; font-size: 15px" > User: {{user.username}} </a>
             <form class="form-inline my-2 my-lg-0">
                 <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'gsplit-chat' %}"> Chat </a>
                 <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'create' %}"> Post </a>
+<!--                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
             </form>
         </ul>
+
         {% else %}
-            <a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a>
-            <a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a>
+
+            <li><a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a></li>
+            <li><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a></li>
+
         {% endif %}
+
     </div>
+
 </nav>
+
         {% block content %}
             Filler Content
         {% endblock %}
@@ -98,6 +116,7 @@ $(document).ready(()=>{
         success : function(response){
             console.log(response);
             $("div[data-id="+post_pk+"]").append('<div style="float: right" class="date">' +'</div> <p><strong>' + response.author +'</strong> : '+response.comment+'</p>');
+
         }
     }) }
     $("form[data-id="+post_pk+"]")[0].reset();
@@ -126,17 +145,6 @@ $(document).ready(()=>{
         }
     })
    })
-        document.querySelector('#room-name-input').focus();
-            document.querySelector('#room-name-input').onkeyup = function(e) {
-                if (e.keyCode === 13) {
-                    document.querySelector('#room-name-submit').click();
-                }
-            };
-
-        document.querySelector('#room-name-submit').onclick = function(e) {
-            var roomName = document.querySelector('#room-name-input').value;
-            window.location.pathname = '/chat/' + roomName + '/';
-        };
 
         $(".submit-follow").click(function(){
          console.log("follow working");
@@ -152,14 +160,17 @@ $(document).ready(()=>{
             profile_id : user_profile_pk,
             csrfmiddlewaretoken: "{{ csrf_token }}",
         },
+
         success : function(response){
             console.log($("span[id=follower-count]"));
             $("span[id=follower-count]").replaceWith('<span id=follower-count style="font-size: 20px; font-weight: lighter"> Followers: ' + response.follower_count + '</span>');
         }
     })
    })
- })
 
+ })
 </script>
 </body>
+
+
 </html>
