@@ -3,7 +3,7 @@
 
 Phase 3 Submission Located in Master<br>
 
-### Running Facegram
+### Running Facegram:
 ```
 
   1. python3 ./manage.py migrate
@@ -17,4 +17,20 @@ Phase 3 Submission Located in Master<br>
   5. python3 ./manage.py runserver
 
 ```
+### Phase 3 Demo: 
+```
+Coming 05/14/2020
+```
+
+### Phase 2 Demo:
+```
+https://www.youtube.com/watch?v=gyIRVaxqMIc
+```
+
+
+### Phase 1 Demo:
+```
+https://www.youtube.com/watch?v=fmAJfewY-68&t=31s
+```
+
 
