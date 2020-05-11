@@ -18,20 +18,8 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
-from channels.auth import AuthMiddlewareStack
-from channels.routing import ProtocolTypeRouter, URLRouter
-import gsplit.urls
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('gsplit.urls')),
     path('', include('django.contrib.auth.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-application = ProtocolTypeRouter({
-    'websocket': AuthMiddlewareStack(
-        URLRouter(
-            gsplit.urls.urlpatterns
-        )
-    ),
-})

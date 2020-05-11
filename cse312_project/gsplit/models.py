@@ -6,9 +6,10 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 import misaka
-import uuid
 from django.db.models import Count
+
 from django import template
+
 # Create your models here.
 CurrentUser = get_user_model()
 
@@ -35,7 +36,7 @@ class UserProfile(models.Model):
 
 class Follows(models.Model):
     followee = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+')
-    follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+') #tg
+    follower = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, related_name='+')
 
 
 class Post(models.Model):
@@ -77,3 +78,7 @@ class Comment(models.Model):
     def __str__(self):
         strval = self.text
         return strval
+
+    # def save(self, *args, **kwargs):
+    #     self.text_html = misaka.html(self.text)
+    #     super().save(*args, *kwargs)
