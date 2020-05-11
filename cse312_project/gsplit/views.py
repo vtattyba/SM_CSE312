@@ -251,5 +251,9 @@ class HomePageView(ListView):
     model = models.Post
     template_name = 'gsplit/posts/post_list.html'
 
-# def login(request):
-#     return render(request, 'gsplit/login.html')
+@login_required
+def chatt(request, room_name):
+    return render(request, 'gsplit/real_chat.html', {
+        'room_name': room_name,
+        'username' : request.user.username
+    })

@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap4'
-
+    'bootstrap4',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -73,7 +73,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cse312_project.wsgi.application'
-
+ASGI_APPLICATION = 'cse312_project.urls.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -94,7 +102,7 @@ DATABASES = {
         'NAME': 'cse312',
         'USER': 'postgres',
         'PASSWORD': 'cse312',
-        'HOST': "db",
+        'HOST': "127.0.0.1",
         'PORT': '5432'
 
     },
