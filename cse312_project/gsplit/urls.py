@@ -1,5 +1,5 @@
 from django.urls import path,re_path
-from . import views
+from . import views, consumer
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -23,15 +23,13 @@ urlpatterns = [
     path('post/<int:pk>/comment/', views.comment_work, name='comment_work'),
     path('post/<int:pk>/likes/', views.likes, name='likes'),
 
+    path('chat/<str:room_name>/', views.chatt, name='room'),
+
     path('posts', views.PostList.as_view(), name='all'),
     path('new', views.CreatePost.as_view(), name='create'),
-    # re_path(r'by/(?P<username>[-\w]+)',views.UserPosts().as_view, name='for_user'),
-    # re_path(r"by/(?P<username>[-\w]+)/(?P<pk>\d+)/$",views.UserPostsDetail.as_view(),name="single"),
 
     re_path(r"delete/(?P<pk>\d+)/$",views.DeletePost.as_view(),name="delete"),
-
-
-
+    re_path(r'ws/chat/(?P<room_name>\w+)/$', consumer.ChatConsumer),
 
 ]
 
