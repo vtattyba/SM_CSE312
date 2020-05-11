@@ -21,10 +21,15 @@ RUN pip3 install django-bootstrap
 RUN pip3 install misaka
 RUN python3 -m pip install Django
 RUN pip3 install psycopg2-binary
+RUN pip3 install channels
+RUN pip3 install channels-redis
+
+ 
 
 
 EXPOSE 8000
 EXPOSE 5432
+EXPOSE 6379
 
 #ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
 #RUN chmod +x /wait
