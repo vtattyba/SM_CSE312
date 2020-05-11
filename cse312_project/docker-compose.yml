@@ -1,6 +1,10 @@
 version: '3'
 
 services:
+
+  redis:
+    image: redis:latest
+
   db:
     image: postgres
     environment:
@@ -11,6 +15,7 @@ services:
       - "5432"
 
   web:
+  
     depends_on:
       - db
     build: .
@@ -21,5 +26,20 @@ services:
 #      - .:/root
     ports:
       - "8000:8000"
+    links:
+      - redis
+
+  worker_channels: 
+    build: .
+    command: bash -c "python3 manage.py runworker default"
+    links:
+      - redis
+  channels:
+    build: .
+    command: bash -c "daphne -b 0.0.0.0 -p 8001 cse312_project.asgi:application"
+    ports:
+      - "8001:8001"
+    links:
+      - redis
 
 
