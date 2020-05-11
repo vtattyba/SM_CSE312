@@ -11,76 +11,68 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     <script type="text/javascript" src="{% static 'gsplit/script.js' %}"></script>
+
 <!--    delete-->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/b6d5ddd578.js"></script> -->
 <!--          delete-->
+    {% block title %} <title> Default </title> {% endblock %}
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-image: linear-gradient(50deg, #f14b62 20%, #f6b669 74%); font-family: Verdana">
+
     <a class="navbar-brand" href="#">
         <div class="spinner-grow" style="width: 2rem; height: 2rem;" role="status">
          <span class="sr-only"></span>
         </div>
     </a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
+
 
         {% if user.is_authenticated %}
+        <ul class="navbar-nav" style="justify-content: left">
+            <li class="nav-item active">
             <li class="nav-item">
-                <a class="nav-link" href="posts">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{% url 'all' %}"> Home <span class="sr-only">(current)</span></a>
             </li>
-            <li><a href="{% url 'create' %}" class="nav-link btn btn-simple">New Post</a></li>
-<!--            <li><a href="#" class="nav-link btn btn-simple">Friends</a></li>-->
-<!--            <li><a href="#"class="nav-link btn btn-simple">Chat</a></li>-->
-<!--            <li><a href="#"class="nav-link btn btn-simple">{{user}}</a></li>-->
-            <li><a href="{% url 'gsplit-logout' %}" class="btn btn-danger">Log out</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'gsplit-profile' username=user.username %}">Profile</a>
+            </li>
 
-        {% else %}
-            <li><a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a></li>
-            <li><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a></li>
-        {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'gsplit-friends' %}">All Friends</a>
+                </li>
 
-{% comment %} {#
-            <li class="nav-item active">#}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'gsplit-index' %}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'gsplit-profile' %}">Profile</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Friends
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">friend 1</a>
-                    <a class="dropdown-item" href="#">friend 2</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'gsplit-friends' %}">All Friends</a>
-                </div>
-            </li>
              <li class="nav-item">
-                <a class="nav-link" href="{% url 'gsplit-login' %}">Logout</a>
+                <a class="nav-link" href="{% url 'gsplit-logout' %}">Logout</a>
             </li>
-            <li class="nav-item">
-<!--                <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-            </li>{% endcomment %}
+        </ul>
+        <ul class="navbar-nav ml-auto" style="justify-content: left">
+            <a class="nav-link" style="text-decoration: none; color: black; font-size: 15px" > User: {{user.username}} </a>
+            <form class="form-inline my-2 my-lg-0">
+                <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'gsplit-chat' %}"> Chat </a>
+                <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'create' %}"> Post </a>
+<!--                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+            </form>
         </ul>
 
-        {% comment %} <form class="form-inline my-2 my-lg-0">
-            <a class="nav-link" style="text-decoration: none; color: gray"  href="#">Post</a>
-            <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'gsplit-chat' %}">Chat</a>
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> {% endcomment %}
+        {% else %}
+
+            <li><a href="{% url 'gsplit-login' %}" class="btn btn-simple">Log in</a></li>
+            <li><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple">Sign up</a></li>
+
+        {% endif %}
+
     </div>
+
 </nav>
 
         {% block content %}
@@ -91,16 +83,105 @@
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+{% comment %} <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
- <script type="text/javascript" src="{% static 'gsplit/script.js' %}"></script>
+
+<script>
+$(document).ready(()=>{
+
+   $(".submit-comment").click(function(){
+   console.log("working")
+     let post_pk = $(this).data('id');
+     let serializedData = $("form[data-id="+post_pk+"]").serialize();
+      if(serializedData == "comment="){
+          alert("Comment cannot be empty");
+      }else{
+     console.log(serializedData);
+
+    $.ajax({
+        url : '/post/'+post_pk+"/comment/",
+        type : 'post',
+        data : {
+            data : serializedData,
+            post_id : post_pk,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success : function(response){
+            console.log(response);
+            $("div[data-id="+post_pk+"]").append('<div style="float: right" class="date">' +'</div> <p><strong>' + response.author +'</strong> : '+response.comment+'</p>');
+
+        }
+    }) }
+    $("form[data-id="+post_pk+"]")[0].reset();
+   })
+
+
+
+    $(".submit-like").click(function(){
+     console.log("like working");
+     let post_pk = $(this).data('id');
+     let serializedData = $("form[data-id=like-"+post_pk+"]").serialize();
+     console.log(serializedData);
+
+    $.ajax({
+        url : '/post/'+post_pk+"/likes/",
+        type : 'post',
+        data : {
+            data : serializedData,
+            post_id : post_pk,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+
+        success : function(response){
+            console.log(response, 'on post: ' + post_pk)
+            $("span[data-id="+post_pk+"]").replaceWith('<span data-id='+post_pk+' id="like-count"style="color: black; padding-right: 5px; font-size: 30px;font-weight: lighter">'+ response.like_count + '</span>')
+        }
+    })
+   })
+
+        $(".submit-follow").click(function(){
+         console.log("follow working");
+         let user_profile_pk = $(this).data('id');
+         let serializedData = $("form[data-id= follow-"+user_profile_pk+"]").serialize();
+         console.log(serializedData);
+
+    $.ajax({
+        url : '/follow/' + user_profile_pk,
+        type : 'post',
+        data : {
+            data : serializedData,
+            profile_id : user_profile_pk,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+
+        success : function(response){
+            console.log($("span[id=follower-count]"));
+            $("span[id=follower-count]").replaceWith('<span id=follower-count style="font-size: 20px; font-weight: lighter"> Followers: ' + response.follower_count + '</span>');
+        }
+    })
+   })
+
+ })
+
+       document.querySelector('#room-name-input').focus();
+            document.querySelector('#room-name-input').onkeyup = function(e) {
+                if (e.keyCode === 13) {
+                    document.querySelector('#room-name-submit').click();
+                }
+            };
+
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+</script>
 </body>
 
 

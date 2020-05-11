@@ -8,13 +8,13 @@ services:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: 'cse312'
     ports:
-      - "5432:5432"
+      - "5432"
 
   web:
     depends_on:
       - db
     build: .
-    command: bash -c "python3 manage.py migrate && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver"
+    command: bash -c "python3 manage.py migrate && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
 #    environment:
 #      WAIT_HOST: db:5432
 #    volumes:

@@ -1,9 +1,9 @@
-{% extends "gsplit/base.html" %}
+{% extends "gsplit/posts/post_base.html" %}
 {% load static %}
 <!doctype html>
 <html lang="en">
 
- {% block title %}<title>Gsplit</title>{% endblock %}
+ {% block title %}<title>FaceGram</title>{% endblock %}
 
  {% block content %}
 
@@ -15,18 +15,33 @@
                <div class="spinner-border" style="width: 15rem; height: 15rem;" role="status"></div>
              </div>
             <h1 style="padding-top: 40px"> FACEGRAM </h1>
-                {% if user.is_authenticated %}
-            <button type="submit" class="btn btn-success mb-2"><a href="posts" class="btn btn-simple" >HOME</a></button>
-                {% else %}
-                        <button type="submit" class="btn btn-success mb-2"><a href="{% url 'gsplit-login' %}" class="btn btn-simple" >Log In</a></button>
 
-            <div class="card-body">
-                <h5 class="card-title">Join our Social Media</h5>
-                <div class="col-auto">
-                  <button type="submit" class="btn btn-warning mb-2"><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple" >Sign up</a></button>
+                {% if user.is_authenticated %}
+            <button type="submit" class="btn btn-success mb-2"><a href="posts" class="btn btn-simple" >HOME</a> </button>
+                {% block post_content %}
+            <div class='container'>
+
+                <div class="col-md-8">
+                    {% if post_list.count == 0 %}
+                    <h1>No Posts Yet ! Go ahead and make one</h1>
+                    {% else %}
+                        {% for post in post_list %}
+                            {% include "gsplit/posts/post.html" %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
-          </div>
-            {% endif %}
+            </div>
+                {% endblock %}
+
+                {% else %}
+                    <button type="submit" class="btn btn-success mb-2"><a href="{% url 'gsplit-login' %}" class="btn btn-simple" >Log In</a></button>
+                    <div class="card-body">
+                        <h5 class="card-title">Join our Social Media</h5>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-warning mb-2"><a href="{% url 'gsplit-create_acc' %}" class="btn btn-simple" >Sign up</a></button>
+                        </div>
+                    </div>
+                {% endif %}
         </form>
     </center>
 </div>

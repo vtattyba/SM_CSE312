@@ -1,9 +1,18 @@
 {% extends "gsplit/base.html" %}
 {% block content %}
 <div class="container">
-  <h1>Checking Profiles is a feature yet to be added</h1>
+    <p>{{user.userprofile.bio}}</p>
+    <p>{{userprofile.user.first_name}}</p>
 
+  <p>{{userprofile.user}}</p>
+  <p>{{userprofile.bio}}</p>
+<img src={{userprofile.profile_pic.url}} alt="404" height="42" width="42">
+  <h1>EDIT PROFILE HERE</h1>
+      <a class="btn btn-danger" style="padding: 5px 40px" href="{% url 'gsplit-edit' %}">Edit</a>
 
+		{% for post in user_posts %}
+			{% include "gsplit/posts/post.html" %}
+		{% endfor %}
 </div>
 
 

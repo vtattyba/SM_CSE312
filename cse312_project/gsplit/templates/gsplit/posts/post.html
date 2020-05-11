@@ -1,12 +1,14 @@
 {% load static %}
+
+
 <div style="width: 100%; margin-top: 40px" class="card mb-3">
     <div class="card-header">
         <img class="post-icon" src="{% static 'gsplit/images/1.jpg'%}" alt='404'>
-        <a class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'test' %}">
-            {{post.owner}}
+        <a class="badge badge-light" style="font-size: 20px; font-weight: lighter; color: gray" href="{% url 'gsplit-profile' username=post.owner.username %}">
+            {{post.owner.username}}
         </a>
         <!--        {{ post.owner.first_name }} {{post.owner.last_name}}-->
-        <p class="card-text card-time"><small class="text-muted">{{post.created_at}}</small></p>
+        <p class="card-text card-time"> <small class="text-muted">{{post.created_at}}</small> </p>
     </div>
 
     {% if post.cover %}
@@ -17,38 +19,49 @@
         <div class="description">
             <div class=" caption">
                 <p class="card-text">
-                    <span class="bold">
-                        <a href="{% url 'test' %}">
-                            {{post.owner}}
-                        </a>
-                     </span>
                     <span style="margin-top: -10px">
                         {{ post.message_html|safe }}
                       </span>
-                    Comments: {{ post.comments.count }}
+                    {% comment %} Comments: {{ post.comments.count }} {% endcomment %}
                 </p>
             </div>
-            <div>
-                <span id="likenumber"
-                      style="color: black; padding-right: 5px; font-size: 25px;font-weight: lighter">9</span>
 
-                <button class="btn btn-warning">Like</button>
+            <div>
+
+                <span data-id="{{post.id}}" id="like-count"
+                      style="color: black; padding-right: 5px; font-size: 30px;font-weight: lighter">{{post.liked.count}}</span>
+                <form data-id=like-{{post.pk}}>
+                    <input data-id = like-{{post.pk}} name="current_user" value="{{user.pk}}" type="hidden">
+                    <button type ="button" class="btn btn-warning submit-like" data-id={{post.pk}} style="padding: 5px">
+                        Like
+                    </button>
+                </form>
+
             </div>
 
             {% if user.is_authenticated and post.owner == user %}
             <p>
-                <a class="btn btn-danger" href="{% url 'delete' pk=post.pk %}">Delete</a>
+                <a class="btn btn-danger" style="padding: 5px 40px" href="{% url 'delete' pk=post.pk %}">Delete</a>
             </p>
             {% endif %}
 
         </div>
-        <button class="btn btn-primary"> <a class="btn btn-default" href="{% url 'comment_work' pk=post.pk %}">Add comment</a></button>
-        <br>
 
-        {% for comment in post.comments.all %}
-        <div style="float: right" class="date">{{ comment.content }}</div>
-        <strong> {{post.owner}}</strong>
-        <p>{{ comment.text|linebreaks }}</p>
-        {% endfor %}
+        <form data-id = {{post.pk}}>
+        <input type="text" data-id={{post.pk}} name ="comment" class="form-control" required>
+        <br>
+        <button type ="button" class="btn btn-primary submit-comment"  data-id={{post.pk}}>
+            Add comment
+            </button>
+        </form>
+
+        <br>
+        <div id="comment-section" data-id={{post.pk}}>
+            {% for comment in post.comments.all %}
+            <div style="float: right" class="date">{{ comment.created_at }}</div>
+            <p><strong> {{comment.author}} </strong> : {{ comment.text }}</p>
+            {% endfor %}
+        </div>
+
     </div>
 </div>

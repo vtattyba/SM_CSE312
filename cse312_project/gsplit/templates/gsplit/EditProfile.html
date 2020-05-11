@@ -1,0 +1,31 @@
+{% extends "gsplit/base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+ {% block title %}<title>Create Account</title>{% endblock %}
+
+ {% block content %}
+
+<div id="login-container">
+    <center>
+
+    <div class="container">
+        <h1>Edit Profile Below</h1>
+        <form enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                {% bootstrap_form u_form %}
+                {% bootstrap_form p_form %}
+
+                <input type="submit" value="Edit" class="btn btn-default">
+            </form>
+    </div>
+
+
+    </center>
+
+</div>
+
+{% endblock %}
+</html>
