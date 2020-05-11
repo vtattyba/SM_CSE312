@@ -83,13 +83,3 @@ class Comment(models.Model):
     def __str__(self):
         strval = self.text
         return strval
-
-
-class Chat(models.Model):
-    sender = models.ForeignKey(UserProfile, on_delete = models.CASCADE, null = True, related_name='sender')
-    receiver = models.ForeignKey(UserProfile, on_delete = models.CASCADE, null = True, related_name='receiver')
-    message = models.TextField(null=True, blank=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.message

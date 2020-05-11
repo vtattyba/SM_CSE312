@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'channels'
-
 ]
 
 MIDDLEWARE = [
@@ -75,13 +74,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'cse312_project.wsgi.application'
-ASGI_APPLICATION = 'cse312_project.routing.application'
+ASGI_APPLICATION = 'cse312_project.urls.application'
 
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 5432)],
+            "hosts": [('127.0.0.1', 6379)],
         },
     },
 }
