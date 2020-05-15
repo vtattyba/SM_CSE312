@@ -34,7 +34,7 @@ Phase 3 Submission Located in Master<br>
 ```
 ### Phase 3 Demo: 
 ```
-Coming 05/14/2020
+https://www.youtube.com/watch?v=Z2kC6sTrSos&feature=youtu.be
 ```
 
 ### Phase 2 Demo:
