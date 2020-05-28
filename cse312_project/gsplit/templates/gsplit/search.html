@@ -1,0 +1,41 @@
+{% extends "gsplit/base.html" %}
+{% load static %}
+{% block title %}
+<title>Friends</title>
+{% endblock %}
+{% block content %}
+ <div id="Outer-timeline">
+<div class="inner-timeline-left">
+    <h4>Search results</h4>
+	{% for result in results  %}
+	<div class="card mb-3" style="max-width: 540px;">
+		<div class="row no-gutters">
+			<div class="col-md-4">
+				<img src="{{ result.user.userprofile.profile_pic.url}}" class="card-img" style="height: 12rem;width: 12rem">
+			</div>
+			<div class="col-md-8">
+				<div class="card-body">
+					<div class="Friends-card">
+						<div class="result-text">
+							<a href="{% url 'gsplit-profile' username=result.user.username %}" class="btn btn-simple">
+								<h5 class="card-title" style="font-size: 30px">{{result}}</h5>
+								<p class="card-title" style="font-size: 30px">{{result.user.first_name}}</h5>
+                                
+							</a>
+							<p class="card-text">
+								<small class="text-muted">Followers: {{result.followers.count}}</small>
+							</p>
+						</div>
+		
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+</div>
+<div class="inner-timeline-right">
+</div>
+</div> 
+{% endblock %}

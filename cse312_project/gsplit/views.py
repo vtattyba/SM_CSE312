@@ -55,6 +55,8 @@ class createAcc(CreateView):
     template_name = 'gsplit/create_acc.html'
 
 
+
+
 class TestPage(TemplateView):
     template_name = 'gsplit/test.html'
 
@@ -218,6 +220,30 @@ def EditProfile(request):
 
         return render(request, 'gsplit/EditProfile.html', {'u_form': user_form,
                                                            'p_form': profile_form})
+
+
+def SearchResult(request):
+    query = request.GET.get('q')
+    if(len(query)==0):
+        everything = models.UserProfile.objects.all()
+        return render(request, 'gsplit/search.html', {'results': everything})
+    else:
+        queries = request.GET.get('q').split(' ')
+        print(queries)
+        querysett = []
+        for q in queries:
+            print('query is ',q)
+            unames = models.UserProfile.objects.filter(user__username__icontains=q)
+            fnames = models.UserProfile.objects.filter(user__first_name__icontains=q)
+            lnames = models.UserProfile.objects.filter(user__last_name__icontains=q)
+            fullquery = unames | fnames | lnames
+
+            querysett+=fullquery.distinct()
+        
+        print(querysett)
+
+        return render(request, 'gsplit/Search.html', {'results': list(set(querysett))})
+    
 
 
 # class UserPosts(ListView):

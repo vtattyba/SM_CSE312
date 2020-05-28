@@ -31,6 +31,7 @@ urlpatterns = [
 
     re_path(r"delete/(?P<pk>\d+)/$",views.DeletePost.as_view(),name="delete"),
     re_path(r'ws/chat/(?P<room_name>\w+)/$', consumer.ChatConsumer),
+    path('search/', views.SearchResult, name='gsplit-search'),
 
 ]
 

@@ -56,11 +56,11 @@
         </ul>
         <ul class="navbar-nav ml-auto" style="justify-content: left">
             <a class="nav-link" style="text-decoration: none; color: black; font-size: 15px" > User: {{user.username}} </a>
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0" action ="/search/">
                 <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'gsplit-chat' %}"> Chat </a>
                 <a class="nav-link" style="text-decoration: none; color: gray"  href="{% url 'create' %}"> Post </a>
-<!--                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+                <input class="form-control mr-sm-2" type="search" name="q" id="SearchUsersInput" placeholder="Search users.." aria-label="Search">
+                     <button class="btn btn-outline-success my-2 my-sm-0" id="SearchUsers" type="submit">Search</button>
             </form>
         </ul>
 
