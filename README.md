@@ -1,6 +1,10 @@
 # SM_CSE312
 
-Live: https://facegram.cse-software.com/
+
+### Live Website
+```
+https://facegram.cse-software.com/
+```
 
 ### Running Facegram:
 ```
