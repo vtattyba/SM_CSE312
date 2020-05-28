@@ -1,7 +1,6 @@
 # SM_CSE312
 
-
-Phase 3 Submission Located in Master<br>
+Live: https://facegram.cse-software.com/
 
 ### Running Facegram:
 ```
